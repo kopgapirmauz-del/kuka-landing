@@ -1,1 +1,207 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KUKA HOME — Katalog</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <!-- Header (same as index) -->
+  <header class="header">
+    <div class="container topbar">
+      <div class="social">
+        <a class="iconbtn" href="#" id="tgLink" aria-label="Telegram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M21.8 4.6 3.5 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.4c.2.6.4.6.8.2l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.4-16c.4-1.4-.5-2-1.4-1.6zM9.4 14.4l9.5-6c.5-.3 1 0 .6.4l-7.7 7.1-.3 3.4c0 .5-.3.6-.6.3l-1.5-2.4-3.1-1c-.7-.2-.7-.6.1-.8z"/></svg>
+        </a>
+        <a class="iconbtn" href="#" id="igLink" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.8-2.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+        </a>
+        <a class="iconbtn" href="#" id="fbLink" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.6 1.7-1.6h1.6V5c-.3 0-1.3-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4V11H7.2v3H10v8h3.5z"/></svg>
+        </a>
+        <a class="iconbtn" href="#" id="ytLink" aria-label="YouTube" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8zM10.2 15.2V8.8L15.8 12l-5.6 3.2z"/></svg>
+        </a>
+      </div>
+
+      <nav class="topnav">
+        <a href="index.html#about" data-i18n="about"></a>
+        <a href="index.html#showrooms" data-i18n="showrooms"></a>
+        <a href="index.html#contact" data-i18n="contact"></a>
+      </nav>
+
+      <div class="lang">
+        <div class="phone"><span>+998 78 555 33 55</span> <small>1408</small></div>
+        <button id="langUz"><span class="flag">🇺🇿</span> O‘zbekcha</button>
+        <button id="langRu"><span class="flag">🇷🇺</span> Рус</button>
+        <button id="langEn"><span class="flag">🇬🇧</span> EN</button>
+      </div>
+    </div>
+
+    <div class="container midbar">
+      <div class="brand">
+        <a href="index.html"><img src="assets/logos/logo-red.png" alt="KUKA HOME"></a>
+      </div>
+
+      <div class="search">
+        🔎
+        <input id="searchInput" data-i18n-ph="search" placeholder="Qidiruv" />
+      </div>
+
+      <div class="cartBtn">
+        <button class="catalogBtn" onclick="location.href='category.html?cat=all'" data-i18n="catalog"></button>
+        <a class="cartPill" href="cart.html" title="Savat">
+          🛒 <span class="badge" id="cartBadge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="sectionHead">
+      <div>
+        <h2 id="catTitle">Katalog</h2>
+        <p class="muted" id="catHint"></p>
+      </div>
+      <div class="pills" id="catPills">
+        <button class="pill active" data-filter="all" data-i18n="all"></button>
+        <button class="pill" data-filter="divan" data-i18n="divan"></button>
+        <button class="pill" data-filter="kreslo" data-i18n="kreslo"></button>
+        <button class="pill" data-filter="stol" data-i18n="stol"></button>
+        <button class="pill" data-filter="yotoq" data-i18n="yotoq"></button>
+        <button class="pill" data-filter="yangi" data-i18n="new_products"></button>
+        <button class="pill" data-filter="tavsiya" data-i18n="recommend"></button>
+      </div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <button class="toTop" id="toTop" aria-label="Top">
+    <svg viewBox="0 0 24 24"><path fill="white" d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8l-4.6 4.6L5 12l7-7z"/></svg>
+  </button>
+
+  <button class="chatFloat" id="chatOpen"><span data-i18n="chat_title"></span></button>
+  <div class="modalOverlay" id="modalOverlay"></div>
+  <div class="modal" id="chatModal">
+    <div class="modalHead">
+      <b data-i18n="chat_title"></b>
+      <button id="chatClose">✕</button>
+    </div>
+    <div class="modalBody">
+      <div class="modalRow">
+        <input id="chatPhone" data-i18n-ph="phone" placeholder="Telefon raqami" />
+      </div>
+      <div class="modalRow" style="flex-direction:column">
+        <textarea id="chatMsg" data-i18n-ph="msg" placeholder="Xabar"></textarea>
+      </div>
+      <div class="modalRow">
+        <button id="chatSend" style="width:100%" data-i18n="send"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+  <script src="sheets.js"></script>
+  <script src="ui.js"></script>
+  <script>
+    function parseParams(){
+      const u = new URL(location.href);
+      return { cat: u.searchParams.get("cat") || "all", q: (u.searchParams.get("q")||"").trim() };
+    }
+
+    function productCard(p){
+      const catKey = p.category;
+      const catLabel = t(catKey === "yangi" ? "new_products" : (catKey==="tavsiya" ? "recommend" : catKey));
+      const hasNew = p.price_new && p.price_new.trim().length>0;
+      const priceHtml = hasNew
+        ? `<div class="priceRow"><span class="oldPrice">${p.price_old||""}</span><span class="newPrice">${p.price_new||""}</span></div>`
+        : `<div class="priceRow"><span class="onePrice">${p.price_old||"So‘rov bo‘yicha"}</span></div>`;
+
+      return `
+        <div class="card" id="${p.id}">
+          <img class="cardImg" src="${p.image||"assets/products/placeholder.jpg"}" alt="${(p.model||"").replaceAll('"',"")}">
+          <div class="cardBody">
+            <div class="cardTop">
+              <div><h3 class="cardTitle">${p.model||""}</h3></div>
+              <span class="tag">${catLabel}</span>
+            </div>
+            <div class="cardDesc">${p.desc||""}</div>
+            ${priceHtml}
+            <div class="cardActions">
+              <button class="sbtn" data-add="${p.id}" title="${t("add_cart")}">🛒</button>
+              <button class="btn primary" data-add="${p.id}">${t("add_cart")}</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    async function loadCategory(cat, q){
+      const keys = (cat==="all")
+        ? ["divan","kreslo","stol","yotoq","yangi","tavsiya"]
+        : [cat];
+
+      let all = [];
+      for(const k of keys){
+        const sheetName = SHEETS[k] || k;
+        const rows = await fetchSheetRows(sheetName);
+        all.push(...rows.map(x=>({...x, category:k})));
+      }
+
+      if(q){
+        const qq = q.toLowerCase();
+        all = all.filter(p => (p.model||"").toLowerCase().includes(qq) || (p.desc||"").toLowerCase().includes(qq));
+      }
+
+      const grid = document.getElementById("grid");
+      grid.innerHTML = all.map(productCard).join("");
+
+      const idMap = new Map(all.map(p=>[p.id,p]));
+      document.body.onclick = (e)=>{
+        const b = e.target.closest("[data-add]");
+        if(!b) return;
+        const id = b.getAttribute("data-add");
+        const p = idMap.get(id);
+        if(!p) return;
+        addToCart({ id:p.id, model:p.model, image:p.image, price_old:p.price_old, price_new:p.price_new, category:p.category });
+      };
+    }
+
+    document.addEventListener("DOMContentLoaded", async ()=>{
+      initLangButtons(); applyI18n(); updateCartBadge();
+      initToTop(); initChat();
+
+      const {cat,q} = parseParams();
+      document.getElementById("catHint").textContent = t("filter_hint");
+      document.getElementById("catTitle").textContent = t("catalog");
+
+      // pills active
+      document.getElementById("catPills").onclick = (e)=>{
+        const p = e.target.closest(".pill");
+        if(!p) return;
+        qsa(".pill", document.getElementById("catPills")).forEach(x=>x.classList.remove("active"));
+        p.classList.add("active");
+        location.href = `category.html?cat=${encodeURIComponent(p.dataset.filter)}`;
+      };
+      qsa(".pill", document.getElementById("catPills")).forEach(x=>{
+        if(x.dataset.filter === cat) x.classList.add("active");
+        if(cat!=="all" && x.dataset.filter!==cat) x.classList.remove("active");
+      });
+
+      // search
+      const input = document.getElementById("searchInput");
+      input.value = q || "";
+      input.addEventListener("keydown",(e)=>{
+        if(e.key==="Enter"){
+          location.href = `category.html?cat=${encodeURIComponent(cat)}&q=${encodeURIComponent(input.value.trim())}`;
+        }
+      });
+
+      await loadCategory(cat,q);
+    });
+  </script>
+</body>
+</html>
