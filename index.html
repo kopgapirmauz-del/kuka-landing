@@ -1,362 +1,253 @@
 <!doctype html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KUKA HOME — Premium mebel katalogi</title>
-  <meta name="description" content="KUKA HOME — premium mebel. Qisqa katalog: divan, kreslo, stol, yotoq. Tez buyurtma va konsultatsiya." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KUKA HOME — Premium mebel</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <div class="topbar-left">
-        <span class="muted">Ish vaqti:</span> 09:00–18:00
-        <span class="dot-sep">•</span>
-        <span class="muted">Telefon:</span> <a href="tel:+998901234567">+998 90 123 45 67</a>
-      </div>
 
-      <div class="topbar-right">
-        <a class="toplink" href="#delivery">Yetkazib berish</a>
-        <a class="toplink" href="#warranty">Kafolat</a>
-        <span class="lang">
-          <button class="lang-btn active" data-lang="uz">UZ</button>
-          <button class="lang-btn" data-lang="ru">RU</button>
-          <button class="lang-btn" data-lang="en">EN</button>
-        </span>
-      </div>
+<header class="header">
+  <div class="container topbar">
+    <div class="social">
+      <a class="iconbtn" href="#" id="tgLink" aria-label="Telegram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M21.8 4.6 3.5 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.4c.2.6.4.6.8.2l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.4-16c.4-1.4-.5-2-1.4-1.6zM9.4 14.4l9.5-6c.5-.3 1 0 .6.4l-7.7 7.1-.3 3.4c0 .5-.3.6-.6.3l-1.5-2.4-3.1-1c-.7-.2-.7-.6.1-.8z"/></svg>
+      </a>
+      <a class="iconbtn" href="#" id="igLink" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.8-2.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+      </a>
+      <a class="iconbtn" href="#" id="fbLink" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.6 1.7-1.6h1.6V5c-.3 0-1.3-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4V11H7.2v3H10v8h3.5z"/></svg>
+      </a>
+      <a class="iconbtn" href="#" id="ytLink" aria-label="YouTube" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8zM10.2 15.2V8.8L15.8 12l-5.6 3.2z"/></svg>
+      </a>
+    </div>
+
+    <nav class="topnav">
+      <a href="#about" data-i18n="about"></a>
+      <a href="#showrooms" data-i18n="showrooms"></a>
+      <a href="#contact" data-i18n="contact"></a>
+    </nav>
+
+    <div class="lang">
+      <div class="phone"><span>+998 78 555 33 55</span> <small>1408</small></div>
+      <button id="langUz"><span class="flag">🇺🇿</span> O‘zbekcha</button>
+      <button id="langRu"><span class="flag">🇷🇺</span> Рус</button>
+      <button id="langEn"><span class="flag">🇬🇧</span> EN</button>
     </div>
   </div>
 
-  <!-- HEADER -->
-  <header class="header" id="header">
-    <div class="container header-inner">
-      <button class="icon-btn burger" id="burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+  <div class="container midbar">
+    <div class="brand">
+      <img src="assets/logos/logo-red.png" alt="KUKA HOME">
+    </div>
 
-      <a class="brand" href="#">
-        <img class="logo" src="assets/kuka-logo.png" alt="KUKA HOME" />
+    <div class="search">
+      🔎
+      <input id="searchInput" data-i18n-ph="search" placeholder="Qidiruv" />
+    </div>
+
+    <div class="cartBtn">
+      <button class="catalogBtn" onclick="location.href='category.html?cat=all'" data-i18n="catalog"></button>
+      <a class="cartPill" href="cart.html" title="Savat">
+        🛒 <span class="badge" id="cartBadge">0</span>
       </a>
+    </div>
+  </div>
+</header>
 
-      <div class="cat-search">
-        <div class="category">
-          <button class="category-btn" id="categoryBtn" aria-haspopup="true" aria-expanded="false">
-            Kategoriyalar
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
+<!-- Slider -->
+<section class="container sliderWrap">
+  <div class="slider">
+    <img id="slideImg" class="slide" src="assets/slider/1.jpg" alt="Slide">
+    <div class="slideNav">
+      <button id="slidePrev" aria-label="Prev">‹</button>
+      <button id="slideNext" aria-label="Next">›</button>
+    </div>
+    <div class="dots" id="dots"></div>
+  </div>
+</section>
 
-          <div class="category-menu" id="categoryMenu">
-            <button class="cat-item active" data-filter="all">Hammasi</button>
-            <button class="cat-item" data-filter="divan">Divan</button>
-            <button class="cat-item" data-filter="kreslo">Kreslo</button>
-            <button class="cat-item" data-filter="stol">Stol</button>
-            <button class="cat-item" data-filter="yotoq">Yotoq</button>
-          </div>
-        </div>
-
-        <div class="search">
-          <input id="searchInput" type="search" placeholder="Qidirish: masalan, '3 o‘rinli', 'kreslo'..." />
-          <button class="search-btn" id="searchBtn" aria-label="Search">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
+<!-- About + Stats -->
+<section id="about" class="about">
+  <div class="container aboutGrid">
+    <div>
+      <div class="aboutBrand">
+        <img src="assets/logos/logo-black.png" alt="KUKA HOME">
+        <div class="muted" style="font-weight:800">KUKA HOME</div>
       </div>
+      <h1 class="aboutTitle" data-i18n="stats_title"></h1>
+      <p class="muted" style="max-width:680px; font-weight:650">
+        Premium segment uchun zamonaviy dizayn, qulaylik va sifat. Katalogni Google Sheets’dan boshqarasiz — sayt avtomatik yangilanadi.
+      </p>
+    </div>
 
-      <div class="header-actions">
-        <button class="icon-btn" id="favBtn" title="Sevimlilar" aria-label="Favorites">
-          ❤
-          <span class="badge" id="favCount">0</span>
-        </button>
-        <button class="icon-btn" id="cartBtn" title="Savatcha" aria-label="Cart">
-          🛒
-          <span class="badge" id="cartCount">0</span>
-        </button>
-        <a class="btn primary" href="https://t.me/USERNAME" target="_blank" rel="noopener">Telegram</a>
+    <div class="stats">
+      <div class="stat"><b>30</b><span data-i18n="stats_a"></span></div>
+      <div class="stat"><b>3000+</b><span data-i18n="stats_b"></span></div>
+      <div class="stat"><b>6</b><span data-i18n="stats_c"></span></div>
+      <div class="stat"><b>25 000+</b><span data-i18n="stats_d"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Catalog short -->
+<section class="section" id="catalog">
+  <div class="container">
+    <div class="sectionHead">
+      <div>
+        <h2 data-i18n="catalog_short"></h2>
+        <p class="muted" data-i18n="filter_hint"></p>
+      </div>
+      <div class="pills" id="homePills">
+        <button class="pill active" data-filter="all" data-i18n="all"></button>
+        <button class="pill" data-filter="divan" data-i18n="divan"></button>
+        <button class="pill" data-filter="kreslo" data-i18n="kreslo"></button>
+        <button class="pill" data-filter="stol" data-i18n="stol"></button>
+        <button class="pill" data-filter="yotoq" data-i18n="yotoq"></button>
       </div>
     </div>
 
-    <!-- MOBILE DRAWER -->
-    <div class="mobile-drawer" id="drawer" aria-hidden="true">
-      <div class="drawer-head">
-        <div class="drawer-title">Menyu</div>
-        <button class="icon-btn" id="drawerClose" aria-label="Close">✕</button>
+    <div class="grid" id="catalogGrid"></div>
+  </div>
+</section>
+
+<!-- New products -->
+<section class="section">
+  <div class="container">
+    <div class="sectionHead">
+      <h2 data-i18n="new_products"></h2>
+      <a class="pill" href="category.html?cat=yangi">→</a>
+    </div>
+    <div class="grid" id="newGrid"></div>
+  </div>
+</section>
+
+<!-- Recommend -->
+<section class="section">
+  <div class="container">
+    <div class="sectionHead">
+      <h2 data-i18n="recommend"></h2>
+      <a class="pill" href="category.html?cat=tavsiya">→</a>
+    </div>
+    <div class="grid" id="recGrid"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container footerGrid">
+    <div>
+      <div class="footerLogo">
+        <img src="assets/logos/logo-black.png" alt="KUKA HOME">
+        <b>KUKA HOME</b>
+      </div>
+      <p style="margin:10px 0 14px" data-i18n="footer_help"></p>
+      <div style="font-weight:900; font-size:18px">+998 78 555 33 55 &nbsp; | &nbsp; 1408</div>
+      <div style="margin-top:12px">
+        <b data-i18n="call_time"></b>
+        <div style="margin-top:6px" data-i18n="call_hours"></div>
       </div>
 
-      <div class="drawer-block">
-        <div class="drawer-label">Kategoriyalar</div>
-        <div class="drawer-cats">
-          <button class="cat-item active" data-filter="all">Hammasi</button>
-          <button class="cat-item" data-filter="divan">Divan</button>
-          <button class="cat-item" data-filter="kreslo">Kreslo</button>
-          <button class="cat-item" data-filter="stol">Stol</button>
-          <button class="cat-item" data-filter="yotoq">Yotoq</button>
+      <div style="margin-top:16px">
+        <b>Biz ijtimoiy tarmoqlarda</b>
+        <div class="social" style="margin-top:10px">
+          <a class="iconbtn" href="#" id="tgLink2" target="_blank" rel="noopener">✈️</a>
+          <a class="iconbtn" href="#" id="igLink2" target="_blank" rel="noopener">📸</a>
+          <a class="iconbtn" href="#" id="fbLink2" target="_blank" rel="noopener">f</a>
+          <a class="iconbtn" href="#" id="ytLink2" target="_blank" rel="noopener">▶</a>
         </div>
-      </div>
-
-      <div class="drawer-block">
-        <div class="drawer-label">Tez havolalar</div>
-        <a class="drawer-link" href="#featured">Top mahsulotlar</a>
-        <a class="drawer-link" href="#catalog">Katalog</a>
-        <a class="drawer-link" href="#delivery">Yetkazib berish</a>
-        <a class="drawer-link" href="#contact">Bog‘lanish</a>
       </div>
     </div>
-  </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="container hero">
-      <div class="hero-grid">
-        <div class="hero-left">
-          <div class="pill">Premium • Minimal • Qulay</div>
-          <h1>Premium mebel katalogi — tez tanlang, tez buyurtma bering</h1>
-          <p class="lead">
-            Eng ommabop modellar: divan, kreslo, stol va yotoq. Narx va mavjudlikni 1 daqiqada aniqlang.
-          </p>
-          <div class="hero-cta">
-            <a class="btn primary" href="#catalog">Katalogga o‘tish</a>
-            <a class="btn ghost" href="tel:+998901234567">Qo‘ng‘iroq</a>
-          </div>
-
-          <div class="trust">
-            <div class="trust-item">
-              <div class="t-num">Premium</div>
-              <div class="t-txt">Segment</div>
-            </div>
-            <div class="trust-item">
-              <div class="t-num">Top</div>
-              <div class="t-txt">Modellar</div>
-            </div>
-            <div class="trust-item">
-              <div class="t-num">Showroom</div>
-              <div class="t-txt">Ko‘rib tanlang</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-right">
-          <div class="hero-banner">
-            <div class="banner-top">
-              <span class="b-tag">Yangi kelgan</span>
-              <span class="b-tag ghost">Chegirma</span>
-            </div>
-            <div class="banner-body">
-              <div class="banner-title">Top kolleksiya</div>
-              <div class="banner-sub">Minimal dizayn — premium kayfiyat</div>
-              <a class="btn small" href="#featured">Top mahsulotlar</a>
-            </div>
-          </div>
-
-          <div class="mini-grid">
-            <div class="mini-card">
-              <div class="mini-title">Yetkazib berish</div>
-              <div class="mini-text">Toshkent va viloyatlar</div>
-            </div>
-            <div class="mini-card">
-              <div class="mini-title">Kafolat</div>
-              <div class="mini-text">Rasmiy shartlar bilan</div>
-            </div>
-            <div class="mini-card">
-              <div class="mini-title">Konsultatsiya</div>
-              <div class="mini-text">Telegram / qo‘ng‘iroq</div>
-            </div>
-            <div class="mini-card">
-              <div class="mini-title">To‘lov</div>
-              <div class="mini-text">Kelishuv asosida</div>
-            </div>
-          </div>
-        </div>
+    <div>
+      <h4 data-i18n="customer"></h4>
+      <div class="muted" style="display:grid; gap:10px">
+        <a href="category.html?cat=all">Katalog</a>
+        <a href="category.html?cat=yangi">Yangi mahsulotlar</a>
+        <a href="category.html?cat=tavsiya">Tavsiya</a>
+        <a href="#contact">Aloqa</a>
       </div>
-    </section>
+    </div>
 
-    <!-- FEATURED STRIP -->
-    <section id="featured" class="strip">
-      <div class="container strip-inner">
-        <div class="strip-item"><span class="strip-num">6–12</span> Top mahsulot</div>
-        <div class="strip-item"><span class="strip-num">4</span> Kategoriya</div>
-        <div class="strip-item"><span class="strip-num">1</span> Sahifada</div>
-        <div class="strip-item"><span class="strip-num">Tez</span> Aloqa</div>
+    <div>
+      <h4 data-i18n="info"></h4>
+      <div class="muted" style="display:grid; gap:10px">
+        <a href="#about">Biz haqimizda</a>
+        <a href="#showrooms">Shourumlar</a>
+        <a href="#catalog">Katalog</a>
       </div>
-    </section>
+    </div>
 
-    <!-- PRODUCTS -->
-    <section id="catalog" class="container section">
-      <div class="section-head">
-        <div>
-          <h2>Katalog (qisqa)</h2>
-          <p class="muted">Qidirish va kategoriya bo‘yicha tez filtr qiling.</p>
-        </div>
-
-        <div class="tabs" id="tabs">
-          <button class="tab active" data-filter="all">Hammasi</button>
-          <button class="tab" data-filter="divan">Divan</button>
-          <button class="tab" data-filter="kreslo">Kreslo</button>
-          <button class="tab" data-filter="stol">Stol</button>
-          <button class="tab" data-filter="yotoq">Yotoq</button>
-        </div>
+    <div>
+      <h4>To‘lov usullari</h4>
+      <div class="payments">
+        <img src="assets/payments/payme.png" alt="payme">
+        <img src="assets/payments/click.png" alt="click">
+        <img src="assets/payments/uzum.png" alt="uzum">
+        <img src="assets/payments/uzcard.png" alt="uzcard">
+        <img src="assets/payments/humo.png" alt="humo">
+        <img src="assets/payments/visa.png" alt="visa">
       </div>
+      <p class="muted" style="margin-top:12px">Logolar bezak uchun (hozircha ishlamaydi).</p>
+    </div>
+  </div>
 
-      <div class="grid" id="productGrid">
-        <!-- product card -->
-        <article class="product" data-type="divan" data-name="Model A 3 o‘rinli divan minimal">
-          <div class="p-img"></div>
-          <div class="p-body">
-            <div class="p-top">
-              <h3>Model A — 3 o‘rinli</h3>
-              <span class="p-chip">Divan</span>
-            </div>
-            <p class="p-desc">Minimal dizayn, yumshoq o‘tirish, premium segment.</p>
-            <div class="p-bottom">
-              <div class="p-price">Narx: so‘rov bo‘yicha</div>
-              <div class="p-actions">
-                <button class="icon-btn small" data-action="fav">❤</button>
-                <button class="icon-btn small" data-action="cart">🛒</button>
-                <a class="btn small primary" target="_blank" rel="noopener"
-                   href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20A%20(3%20o‘rinli)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
-                  Batafsil
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
+  <div class="container footerBottom">
+    <div>© 2026 KUKA HOME. Barcha huquqlar himoyalangan.</div>
+    <div class="muted">Cloudflare Pages</div>
+  </div>
+</footer>
 
-        <article class="product" data-type="kreslo" data-name="Model B kreslo premium">
-          <div class="p-img"></div>
-          <div class="p-body">
-            <div class="p-top">
-              <h3>Model B — kreslo</h3>
-              <span class="p-chip">Kreslo</span>
-            </div>
-            <p class="p-desc">Qulay o‘tirish, premium qoplama, zamonaviy ko‘rinish.</p>
-            <div class="p-bottom">
-              <div class="p-price">Narx: so‘rov bo‘yicha</div>
-              <div class="p-actions">
-                <button class="icon-btn small" data-action="fav">❤</button>
-                <button class="icon-btn small" data-action="cart">🛒</button>
-                <a class="btn small primary" target="_blank" rel="noopener"
-                   href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20B%20(kreslo)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
-                  Batafsil
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
+<button class="toTop" id="toTop" aria-label="Top">
+  <svg viewBox="0 0 24 24"><path fill="white" d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8l-4.6 4.6L5 12l7-7z"/></svg>
+</button>
 
-        <article class="product" data-type="stol" data-name="Model C ovqat stoli minimal">
-          <div class="p-img"></div>
-          <div class="p-body">
-            <div class="p-top">
-              <h3>Model C — ovqat stoli</h3>
-              <span class="p-chip">Stol</span>
-            </div>
-            <p class="p-desc">Minimal, mustahkam, interyerga mos.</p>
-            <div class="p-bottom">
-              <div class="p-price">Narx: so‘rov bo‘yicha</div>
-              <div class="p-actions">
-                <button class="icon-btn small" data-action="fav">❤</button>
-                <button class="icon-btn small" data-action="cart">🛒</button>
-                <a class="btn small primary" target="_blank" rel="noopener"
-                   href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20C%20(stol)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
-                  Batafsil
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
+<button class="chatFloat" id="chatOpen"><span data-i18n="chat_title"></span></button>
+<div class="modalOverlay" id="modalOverlay"></div>
+<div class="modal" id="chatModal">
+  <div class="modalHead">
+    <b data-i18n="chat_title"></b>
+    <button id="chatClose">✕</button>
+  </div>
+  <div class="modalBody">
+    <div class="modalRow">
+      <input id="chatPhone" data-i18n-ph="phone" placeholder="Telefon raqami" />
+    </div>
+    <div class="modalRow" style="flex-direction:column">
+      <textarea id="chatMsg" data-i18n-ph="msg" placeholder="Xabar"></textarea>
+    </div>
+    <div class="modalRow">
+      <button id="chatSend" style="width:100%" data-i18n="send"></button>
+    </div>
+  </div>
+</div>
 
-        <article class="product" data-type="yotoq" data-name="Model D yotoq premium">
-          <div class="p-img"></div>
-          <div class="p-body">
-            <div class="p-top">
-              <h3>Model D — yotoq</h3>
-              <span class="p-chip">Yotoq</span>
-            </div>
-            <p class="p-desc">Sokin ranglar, premium ko‘rinish, qulaylik.</p>
-            <div class="p-bottom">
-              <div class="p-price">Narx: so‘rov bo‘yicha</div>
-              <div class="p-actions">
-                <button class="icon-btn small" data-action="fav">❤</button>
-                <button class="icon-btn small" data-action="cart">🛒</button>
-                <a class="btn small primary" target="_blank" rel="noopener"
-                   href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20D%20(yotoq)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
-                  Batafsil
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
+<script src="i18n.js"></script>
+<script src="store.js"></script>
+<script src="sheets.js"></script>
+<script src="ui.js"></script>
+<script src="app.js"></script>
 
-      <div class="empty" id="emptyState" hidden>
-        Hech narsa topilmadi. Qidiruvni o‘zgartiring yoki “Hammasi” ni tanlang.
-      </div>
-    </section>
+<script>
+  // Social links (o'zingiz URL qo'yasiz)
+  const LINKS = {
+    tg: "https://t.me/",
+    ig: "https://instagram.com/",
+    fb: "https://facebook.com/",
+    yt: "https://youtube.com/"
+  };
+  ["tgLink","igLink","fbLink","ytLink","tgLink2","igLink2","fbLink2","ytLink2"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(id.startsWith("tg")) el.href = LINKS.tg;
+    if(id.startsWith("ig")) el.href = LINKS.ig;
+    if(id.startsWith("fb")) el.href = LINKS.fb;
+    if(id.startsWith("yt")) el.href = LINKS.yt;
+  });
+</script>
 
-    <!-- INFO -->
-    <section class="container section info" id="delivery">
-      <div class="info-grid">
-        <div class="info-card">
-          <h3>Yetkazib berish</h3>
-          <p class="muted">Shahar/viloyat bo‘yicha kelishuv. Katta buyurtmalar uchun maxsus shartlar.</p>
-        </div>
-        <div class="info-card" id="warranty">
-          <h3>Kafolat</h3>
-          <p class="muted">Rasmiy kafolat shartlari. Model/materialga qarab muddat farq qiladi.</p>
-        </div>
-        <div class="info-card">
-          <h3>Showroom</h3>
-          <p class="muted">Mahsulotlarni ko‘rib, materialini tekshirib, tanlab olishingiz mumkin.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer" id="contact">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">
-            <img class="logo sm" src="assets/kuka-logo.png" alt="KUKA HOME">
-          </div>
-          <p class="muted">Premium mebel katalogi. Tez aloqa va konsultatsiya.</p>
-        </div>
-
-        <div>
-          <div class="footer-title">Mijozlar</div>
-          <a class="footer-link" href="#delivery">Yetkazib berish</a>
-          <a class="footer-link" href="#warranty">Kafolat</a>
-          <a class="footer-link" href="#catalog">Katalog</a>
-        </div>
-
-        <div>
-          <div class="footer-title">Aloqa</div>
-          <div class="muted">Telefon:</div>
-          <a class="footer-link" href="tel:+998901234567">+998 90 123 45 67</a>
-          <div class="muted" style="margin-top:10px;">Telegram:</div>
-          <a class="footer-link" href="https://t.me/USERNAME" target="_blank" rel="noopener">@USERNAME</a>
-        </div>
-
-        <div>
-          <div class="footer-title">Manzil</div>
-          <div class="muted">Toshkent, showroom manzili</div>
-          <div class="muted" style="margin-top:10px;">Ish vaqti</div>
-          <div>09:00–18:00</div>
-        </div>
-      </div>
-
-      <div class="container footer-bottom">
-        <span class="muted">© <span id="year"></span> KUKA HOME</span>
-        <span class="muted">Cloudflare Pages</span>
-      </div>
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
 </body>
 </html>
