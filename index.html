@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KUKA HOME — Premium mebel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="container nav">
+    <div class="brand">KUKA HOME</div>
+    <div class="nav-actions">
+      <a class="btn ghost" href="#catalog">Katalog</a>
+      <a class="btn" href="#contact">Bog‘lanish</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="container hero">
+      <div class="hero-left">
+        <div class="badge">Premium • Minimal • Qulay</div>
+        <h1>Uyingiz uchun premium mebel — qisqa katalog va tez buyurtma</h1>
+        <p class="sub">
+          Eng ommabop modellar: divan, kreslo, stol va yotoq. Narx va mavjudlikni tezda bilish uchun bog‘laning.
+        </p>
+
+        <div class="cta">
+          <a class="btn" href="https://t.me/USERNAME" target="_blank" rel="noopener">Telegramga yozish</a>
+          <a class="btn ghost" href="tel:+998901234567">Qo‘ng‘iroq qilish</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num">24/7</div>
+            <div class="stat-txt">Murojaatlar</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">6–12</div>
+            <div class="stat-txt">Top modellar</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">Premium</div>
+            <div class="stat-txt">Segment</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+          <div class="hero-card-body">
+            <div class="ph"></div>
+            <div class="hero-card-title">Katalogdan tanlang</div>
+            <div class="hero-card-text">Har bir model uchun “Batafsil” tugmasi orqali tez so‘rov yuboring.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="container section">
+      <div class="section-title">
+        <h2>Nega biz?</h2>
+        <p>Oddiy, tez va tushunarli jarayon.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Premium material</h3>
+          <p>Yuqori sifatli qoplama va mustahkam karkas. Uzoq xizmat qiladi.</p>
+        </div>
+        <div class="card">
+          <h3>Tez konsultatsiya</h3>
+          <p>Telegram yoki qo‘ng‘iroq orqali narx, o‘lcham va mavjudlikni aytamiz.</p>
+        </div>
+        <div class="card">
+          <h3>Showroom</h3>
+          <p>Ko‘rib tanlash imkoniyati. Yetkazib berish shartlari ham bor.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATALOG -->
+    <section id="catalog" class="container section">
+      <div class="section-title row">
+        <div>
+          <h2>Qisqa katalog</h2>
+          <p>Eng ommabop modellar (namuna). Rasmlar o‘rniga keyin o‘zingiznikini qo‘yasiz.</p>
+        </div>
+        <div class="filters">
+          <button class="chip active" data-filter="all">Hammasi</button>
+          <button class="chip" data-filter="divan">Divan</button>
+          <button class="chip" data-filter="kreslo">Kreslo</button>
+          <button class="chip" data-filter="stol">Stol</button>
+          <button class="chip" data-filter="yotoq">Yotoq</button>
+        </div>
+      </div>
+
+      <div class="grid-4" id="productGrid">
+        <!-- CARD -->
+        <article class="product" data-type="divan">
+          <div class="img"></div>
+          <div class="p-body">
+            <div class="p-top">
+              <h3>Model A — 3 o‘rinli</h3>
+              <span class="tag">Divan</span>
+            </div>
+            <p class="p-desc">Minimal dizayn, yumshoq o‘tirish, premium segment.</p>
+            <div class="p-bottom">
+              <div class="price">Narx: so‘rov bo‘yicha</div>
+              <a class="btn small" target="_blank" rel="noopener"
+                 href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20A%20(3%20o‘rinli)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
+                Batafsil
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-type="kreslo">
+          <div class="img"></div>
+          <div class="p-body">
+            <div class="p-top">
+              <h3>Model B — kreslo</h3>
+              <span class="tag">Kreslo</span>
+            </div>
+            <p class="p-desc">Qulay o‘tirish, premium qoplama, zamonaviy ko‘rinish.</p>
+            <div class="p-bottom">
+              <div class="price">Narx: so‘rov bo‘yicha</div>
+              <a class="btn small" target="_blank" rel="noopener"
+                 href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20B%20(kreslo)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
+                Batafsil
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-type="stol">
+          <div class="img"></div>
+          <div class="p-body">
+            <div class="p-top">
+              <h3>Model C — ovqat stoli</h3>
+              <span class="tag">Stol</span>
+            </div>
+            <p class="p-desc">Minimal, mustahkam, interyerga mos.</p>
+            <div class="p-bottom">
+              <div class="price">Narx: so‘rov bo‘yicha</div>
+              <a class="btn small" target="_blank" rel="noopener"
+                 href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20C%20(stol)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
+                Batafsil
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-type="yotoq">
+          <div class="img"></div>
+          <div class="p-body">
+            <div class="p-top">
+              <h3>Model D — yotoq</h3>
+              <span class="tag">Yotoq</span>
+            </div>
+            <p class="p-desc">Sokin ranglar, premium ko‘rinish, qulaylik.</p>
+            <div class="p-bottom">
+              <div class="price">Narx: so‘rov bo‘yicha</div>
+              <a class="btn small" target="_blank" rel="noopener"
+                 href="https://t.me/USERNAME?text=Assalomu%20alaykum.%20Model%20D%20(yotoq)%20bo‘yicha%20narx%20va%20mavjudlikni%20ayting.">
+                Batafsil
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container section contact">
+      <div class="contact-card">
+        <h2>Bog‘lanish</h2>
+        <p>Tez javob uchun Telegramga yozing yoki qo‘ng‘iroq qiling.</p>
+
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="label">Telegram</div>
+            <a href="https://t.me/USERNAME" target="_blank" rel="noopener">@USERNAME</a>
+          </div>
+          <div class="contact-item">
+            <div class="label">Telefon</div>
+            <a href="tel:+998901234567">+998 90 123 45 67</a>
+          </div>
+          <div class="contact-item">
+            <div class="label">Manzil</div>
+            <div>Toshkent, showroom manzili</div>
+          </div>
+          <div class="contact-item">
+            <div class="label">Ish vaqti</div>
+            <div>09:00–18:00</div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        © <span id="year"></span> KUKA HOME. Barcha huquqlar himoyalangan.
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
