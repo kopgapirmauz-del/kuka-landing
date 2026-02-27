@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="f-uz" viewBox="0 0 24 24">
+    <path fill="#1eb6ff" d="M2 3h20v6H2z"/><path fill="#fff" d="M2 9h20v6H2z"/><path fill="#2eb85c" d="M2 15h20v6H2z"/>
+    <path fill="#e53935" d="M2 8.4h20v1.2H2zM2 14.4h20v1.2H2z"/>
+  </symbol>
+  <symbol id="f-ru" viewBox="0 0 24 24">
+    <path fill="#fff" d="M2 3h20v6H2z"/><path fill="#2457ff" d="M2 9h20v6H2z"/><path fill="#e53935" d="M2 15h20v6H2z"/>
+  </symbol>
+  <symbol id="f-gb" viewBox="0 0 24 24">
+    <path fill="#0a3aa8" d="M2 3h20v18H2z"/><path fill="#fff" d="M10.7 3h2.6v18h-2.6zM2 10.7h20v2.6H2z"/>
+  </symbol>
+</svg>
