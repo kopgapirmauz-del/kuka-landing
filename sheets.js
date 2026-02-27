@@ -57,31 +57,25 @@ async function postToWebApp(payload) {
   try {
     const res = await fetch(WEBAPP_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      // 👇 MUHIM: preflight bo'lmasin
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload),
+      redirect: "follow",
     });
 
-    return await res.json();
+    const text = await res.text();
+
+    // Ba'zan JSON bo'lmay qolishi mumkin (masalan, HTML qaytsa)
+    try {
+      return JSON.parse(text);
+    } catch {
+      console.error("WebApp non-JSON response:", text);
+      return { ok: false };
+    }
   } catch (err) {
     console.error("Sheets error:", err);
     return { ok: false };
   }
-}
-
-// ===== 6) ORDER YUBORISH
-async function sendOrderToSheets(orderPayload) {
-  return postToWebApp({
-    action: "order",
-    ...orderPayload,
-  });
-}
-
-// ===== 7) CHAT YUBORISH
-async function sendChatToSheets(chatPayload) {
-  return postToWebApp({
-    action: "chat",
-    ...chatPayload,
-  });
 }
 
 // ===== 8) GLOBAL EXPORT
