@@ -118,30 +118,78 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Mobile drawer
-const burger = document.getElementById("burger");
-const drawer = document.getElementById("drawer");
-const drawerCloseBtn = document.getElementById("drawerClose");
+// ========= Premium Slider =========
+function initSlider() {
+  const root = document.querySelector('[data-slider]');
+  if (!root) return;
 
-function drawerOpen() {
-  if (!drawer) return;
-  drawer.classList.add("open");
-  drawer.setAttribute("aria-hidden", "false");
-}
-function drawerClose() {
-  if (!drawer) return;
-  drawer.classList.remove("open");
-  drawer.setAttribute("aria-hidden", "true");
-}
-if (burger) burger.addEventListener("click", drawerOpen);
-if (drawerCloseBtn) drawerCloseBtn.addEventListener("click", drawerClose);
-if (drawer) {
-  drawer.addEventListener("click", (e) => {
-    // click outside panel closes (we used full overlay; blocks are inside overlay)
-    // close when click on overlay background only
-    if (e.target === drawer) drawerClose();
+  const track = root.querySelector('.slider-track');
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const prev = root.querySelector('[data-prev]');
+  const next = root.querySelector('[data-next]');
+  const dots = root.querySelector('.slider-dots');
+
+  let index = 0;
+  let timer = null;
+
+  // dots
+  dots.innerHTML = slides.map((_, i) => `<button class="dot ${i===0?'is-active':''}" data-dot="${i}" aria-label="slide ${i+1}"></button>`).join('');
+
+  function setActiveDot(i){
+    dots.querySelectorAll('.dot').forEach(d=>d.classList.remove('is-active'));
+    const el = dots.querySelector(`[data-dot="${i}"]`);
+    if (el) el.classList.add('is-active');
+  }
+
+  function go(i){
+    index = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    setActiveDot(index);
+  }
+
+  function play(){
+    stop();
+    timer = setInterval(()=>go(index+1), 4500);
+  }
+  function stop(){ if(timer) clearInterval(timer); timer=null; }
+
+  prev?.addEventListener('click', ()=>{ go(index-1); play(); });
+  next?.addEventListener('click', ()=>{ go(index+1); play(); });
+  dots?.addEventListener('click', (e)=>{
+    const b = e.target.closest('[data-dot]');
+    if(!b) return;
+    go(Number(b.dataset.dot));
+    play();
   });
-}
 
-// initial
-applyFilters();
+  // swipe
+  let startX=0, dx=0, isDown=false;
+  root.addEventListener('pointerdown', (e)=>{
+    isDown = true;
+    startX = e.clientX;
+    dx = 0;
+    track.style.transition = 'none';
+    stop();
+  });
+  root.addEventListener('pointermove', (e)=>{
+    if(!isDown) return;
+    dx = e.clientX - startX;
+    track.style.transform = `translateX(calc(-${index*100}% + ${dx}px))`;
+  });
+  root.addEventListener('pointerup', ()=>{
+    if(!isDown) return;
+    isDown=false;
+    track.style.transition = '';
+    if (Math.abs(dx) > 60) go(index + (dx<0?1:-1));
+    else go(index);
+    play();
+  });
+
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', play);
+
+  go(0);
+  play();
+}
+document.addEventListener('DOMContentLoaded', initSlider);
+
