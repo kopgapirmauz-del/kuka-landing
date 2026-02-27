@@ -1,195 +1,205 @@
-// year
-document.getElementById("year").textContent = new Date().getFullYear();
+/* =========================
+   KUKA HOME — script.js (Pro / Safe)
+   Works with:
+   - store.js (cartCount, addToCart, updateCartBadge, formatMoney)
+   - ui.js (toast, flyToCart)
+   Notes:
+   - Does NOT create another slider (ui.js handles slider)
+   ========================= */
 
-// Elements
-const categoryBtn = document.getElementById("categoryBtn");
-const categoryMenu = document.getElementById("categoryMenu");
-const tabs = document.querySelectorAll(".tab");
-const catItems = document.querySelectorAll(".cat-item");
-const products = Array.from(document.querySelectorAll(".product"));
-const searchInput = document.getElementById("searchInput");
-const emptyState = document.getElementById("emptyState");
+(function () {
+  // ----- small helpers -----
+  const qs = (sel, root = document) => root.querySelector(sel);
+  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 
-const favCountEl = document.getElementById("favCount");
-const cartCountEl = document.getElementById("cartCount");
-let favCount = 0;
-let cartCount = 0;
+  const toNum = (v) => {
+    const n = Number(String(v ?? "").replace(/[^\d.]/g, "")) || 0;
+    return n;
+  };
+  const normAvail = (v) => {
+    const s = String(v ?? "").trim().toLowerCase();
+    if (["no", "false", "0", "yoq", "mavjud emas"].includes(s)) return false;
+    if (["yes", "true", "1", "bor", "mavjud"].includes(s)) return true;
+    return true; // default
+  };
 
-let activeFilter = "all";
-let searchTerm = "";
+  // ----- Year -----
+  const yearEl = qs("#year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Category dropdown
-if (categoryBtn && categoryMenu) {
-  categoryBtn.addEventListener("click", () => {
-    const open = categoryMenu.classList.toggle("open");
-    categoryBtn.setAttribute("aria-expanded", String(open));
+  // ----- Elements (optional by page) -----
+  const categoryBtn = qs("#categoryBtn");
+  const categoryMenu = qs("#categoryMenu");
+  const tabs = qsa(".tab");
+  const catItems = qsa(".cat-item");
+  const products = qsa(".product");
+  const searchInput = qs("#searchInput");
+  const emptyState = qs("#emptyState");
+
+  const favCountEl = qs("#favCount");
+  const cartCountEl = qs("#cartCount"); // agar category sahifada bo‘lsa
+
+  let favCount = 0;
+  let activeFilter = "all";
+  let searchTerm = "";
+
+  // ----- Category dropdown -----
+  if (categoryBtn && categoryMenu) {
+    on(categoryBtn, "click", () => {
+      const open = categoryMenu.classList.toggle("open");
+      categoryBtn.setAttribute("aria-expanded", String(open));
+    });
+
+    on(document, "click", (e) => {
+      const inside = categoryMenu.contains(e.target) || categoryBtn.contains(e.target);
+      if (!inside) {
+        categoryMenu.classList.remove("open");
+        categoryBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  function setActiveButtons(filter) {
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.filter === filter));
+    catItems.forEach(c => c.classList.toggle("active", c.dataset.filter === filter));
+  }
+
+  function applyFilters() {
+    if (!products.length) return;
+
+    const term = searchTerm.trim().toLowerCase();
+    let visible = 0;
+
+    products.forEach((p) => {
+      const type = (p.dataset.type || "").toLowerCase();
+      const name = (p.dataset.name || "").toLowerCase();
+
+      const matchFilter = (activeFilter === "all") || (type === activeFilter);
+      const matchSearch = !term || name.includes(term);
+      const ok = matchFilter && matchSearch;
+
+      p.style.display = ok ? "block" : "none";
+      if (ok) visible++;
+    });
+
+    if (emptyState) emptyState.hidden = visible !== 0;
+  }
+
+  // ----- Tabs click -----
+  tabs.forEach((t) => {
+    on(t, "click", () => {
+      activeFilter = (t.dataset.filter || "all").toLowerCase();
+      setActiveButtons(activeFilter);
+      applyFilters();
+    });
   });
 
+  // ----- Category items click -----
+  catItems.forEach((c) => {
+    on(c, "click", () => {
+      activeFilter = (c.dataset.filter || "all").toLowerCase();
+      setActiveButtons(activeFilter);
+      applyFilters();
+
+      // close dropdown
+      if (categoryMenu?.classList.contains("open")) {
+        categoryMenu.classList.remove("open");
+        categoryBtn?.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  // ----- Search -----
+  function setSearch(v) {
+    searchTerm = v || "";
+    applyFilters();
+  }
+  if (searchInput) on(searchInput, "input", (e) => setSearch(e.target.value));
+
+  // ----- Real cart count from store.js -----
+  function syncCartCount() {
+    try {
+      const n = window.cartCount ? window.cartCount() : 0;
+      if (cartCountEl) cartCountEl.textContent = String(n);
+      window.updateCartBadge?.();
+    } catch {}
+  }
+
+  // store.js event (bizning yangi store.js dispatch qiladi)
+  window.addEventListener("cart:change", syncCartCount);
+
+  // initial
+  document.addEventListener("DOMContentLoaded", () => {
+    setActiveButtons(activeFilter);
+    applyFilters();
+    syncCartCount();
+  });
+
+  // ----- Product actions (fav / cart) -----
   document.addEventListener("click", (e) => {
-    const inside = categoryMenu.contains(e.target) || categoryBtn.contains(e.target);
-    if (!inside) {
-      categoryMenu.classList.remove("open");
-      categoryBtn.setAttribute("aria-expanded", "false");
-    }
-  });
-}
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
 
-// Filtering
-function applyFilters() {
-  const term = searchTerm.trim().toLowerCase();
-  let visible = 0;
+    const action = btn.dataset.action;
 
-  products.forEach((p) => {
-    const type = p.dataset.type;
-    const name = (p.dataset.name || "").toLowerCase();
-    const matchFilter = (activeFilter === "all") || (type === activeFilter);
-    const matchSearch = !term || name.includes(term);
-    const ok = matchFilter && matchSearch;
-
-    p.style.display = ok ? "block" : "none";
-    if (ok) visible++;
-  });
-
-  emptyState.hidden = visible !== 0;
-}
-
-function setActiveButtons(filter) {
-  // tabs
-  tabs.forEach(t => t.classList.toggle("active", t.dataset.filter === filter));
-  // category items (both header dropdown and drawer)
-  catItems.forEach(c => c.classList.toggle("active", c.dataset.filter === filter));
-}
-
-// Tab click
-tabs.forEach((t) => {
-  t.addEventListener("click", () => {
-    activeFilter = t.dataset.filter;
-    setActiveButtons(activeFilter);
-    applyFilters();
-  });
-});
-
-// Category click
-catItems.forEach((c) => {
-  c.addEventListener("click", () => {
-    activeFilter = c.dataset.filter;
-    setActiveButtons(activeFilter);
-    applyFilters();
-
-    // close dropdown if open
-    if (categoryMenu?.classList.contains("open")) {
-      categoryMenu.classList.remove("open");
-      categoryBtn?.setAttribute("aria-expanded", "false");
+    // FAVORITE (local only)
+    if (action === "fav") {
+      favCount++;
+      if (favCountEl) favCountEl.textContent = String(favCount);
+      btn.classList.add("pulse");
+      setTimeout(() => btn.classList.remove("pulse"), 220);
+      return;
     }
 
-    // close drawer if open
-    drawerClose();
-  });
-});
+    // CART (real store.js cart)
+    if (action === "cart") {
+      const card = btn.closest(".product") || btn.closest(".card") || btn.closest("[data-product]");
+      if (!card) return;
 
-// Search
-function setSearch(v) {
-  searchTerm = v || "";
-  applyFilters();
-}
+      // Siz category/product cardlarda shularni dataset qilib qo‘ysangiz bas:
+      // data-id, data-title, data-price, data-image, data-available (Yes/No)
+      const id = card.dataset.id || card.dataset.sku || card.dataset.name;
+      const title = card.dataset.title || card.dataset.name || id || "Model";
+      const price = toNum(card.dataset.price);
+      const image = card.dataset.image || card.querySelector("img")?.src || "";
+      const available = normAvail(card.dataset.available);
 
-if (searchInput) {
-  searchInput.addEventListener("input", (e) => setSearch(e.target.value));
-}
+      if (!id) {
+        window.toast?.("Xatolik: product id yo‘q");
+        return;
+      }
 
-// Product actions
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-action]");
-  if (!btn) return;
+      if (!available) {
+        window.toast?.("Mavjud emas ❌");
+        return;
+      }
 
-  const action = btn.dataset.action;
-  if (action === "fav") {
-    favCount++;
-    favCountEl.textContent = favCount;
-    btn.classList.add("pulse");
-    setTimeout(() => btn.classList.remove("pulse"), 220);
-  }
+      // Add to cart
+      const res = window.addToCart?.({
+        id: String(id),
+        title: String(title),
+        price: Number(price) || 0,
+        images: image ? [image] : [],
+        available: "Yes"
+      });
 
-  if (action === "cart") {
-    cartCount++;
-    cartCountEl.textContent = cartCount;
-    btn.classList.add("pulse");
-    setTimeout(() => btn.classList.remove("pulse"), 220);
-  }
-});
+      // UI effects
+      const imgEl = card.querySelector("img");
+      if (imgEl) window.flyToCart?.(imgEl);
+      window.toast?.("Savatga qo‘shildi ✅");
 
-// ========= Premium Slider =========
-function initSlider() {
-  const root = document.querySelector('[data-slider]');
-  if (!root) return;
+      btn.classList.add("pulse");
+      setTimeout(() => btn.classList.remove("pulse"), 220);
 
-  const track = root.querySelector('.slider-track');
-  const slides = Array.from(root.querySelectorAll('.slide'));
-  const prev = root.querySelector('[data-prev]');
-  const next = root.querySelector('[data-next]');
-  const dots = root.querySelector('.slider-dots');
+      // Sync count
+      syncCartCount();
 
-  let index = 0;
-  let timer = null;
-
-  // dots
-  dots.innerHTML = slides.map((_, i) => `<button class="dot ${i===0?'is-active':''}" data-dot="${i}" aria-label="slide ${i+1}"></button>`).join('');
-
-  function setActiveDot(i){
-    dots.querySelectorAll('.dot').forEach(d=>d.classList.remove('is-active'));
-    const el = dots.querySelector(`[data-dot="${i}"]`);
-    if (el) el.classList.add('is-active');
-  }
-
-  function go(i){
-    index = (i + slides.length) % slides.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    setActiveDot(index);
-  }
-
-  function play(){
-    stop();
-    timer = setInterval(()=>go(index+1), 4500);
-  }
-  function stop(){ if(timer) clearInterval(timer); timer=null; }
-
-  prev?.addEventListener('click', ()=>{ go(index-1); play(); });
-  next?.addEventListener('click', ()=>{ go(index+1); play(); });
-  dots?.addEventListener('click', (e)=>{
-    const b = e.target.closest('[data-dot]');
-    if(!b) return;
-    go(Number(b.dataset.dot));
-    play();
+      // If store denies
+      if (res && res.ok === false && res.error === "not_available") {
+        window.toast?.("Mavjud emas ❌");
+      }
+    }
   });
 
-  // swipe
-  let startX=0, dx=0, isDown=false;
-  root.addEventListener('pointerdown', (e)=>{
-    isDown = true;
-    startX = e.clientX;
-    dx = 0;
-    track.style.transition = 'none';
-    stop();
-  });
-  root.addEventListener('pointermove', (e)=>{
-    if(!isDown) return;
-    dx = e.clientX - startX;
-    track.style.transform = `translateX(calc(-${index*100}% + ${dx}px))`;
-  });
-  root.addEventListener('pointerup', ()=>{
-    if(!isDown) return;
-    isDown=false;
-    track.style.transition = '';
-    if (Math.abs(dx) > 60) go(index + (dx<0?1:-1));
-    else go(index);
-    play();
-  });
-
-  root.addEventListener('mouseenter', stop);
-  root.addEventListener('mouseleave', play);
-
-  go(0);
-  play();
-}
-document.addEventListener('DOMContentLoaded', initSlider);
-
+})();
