@@ -1,1 +1,176 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>KUKA HOME — Aloqa</title>
+  <meta name="description" content="KUKA HOME bilan bog‘lanish: telefon, telegram, manzil va konsultatsiya."/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
 
+  <header class="header">
+    <div class="container header-inner">
+
+      <div class="top-social">
+        <a class="icon-btn" href="https://t.me/your_channel" target="_blank" aria-label="Telegram">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-telegram"></use></svg>
+        </a>
+        <a class="icon-btn" href="https://instagram.com/" target="_blank" aria-label="Instagram">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-instagram"></use></svg>
+        </a>
+        <a class="icon-btn" href="https://facebook.com/" target="_blank" aria-label="Facebook">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-facebook"></use></svg>
+        </a>
+        <a class="icon-btn" href="https://youtube.com/" target="_blank" aria-label="YouTube">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-youtube"></use></svg>
+        </a>
+      </div>
+
+      <a class="brand" href="index.html" aria-label="KUKA HOME">
+        <img src="assets/logos/kuka.png" alt="KUKA HOME" class="brand-logo">
+      </a>
+
+      <nav class="nav-links">
+        <a href="about.html" class="nav-link">Biz haqimizda</a>
+        <a href="showrooms.html" class="nav-link">Shourumlar</a>
+        <a href="contact.html" class="nav-link is-active">Aloqa</a>
+      </nav>
+
+      <div class="header-right">
+        <a class="phone" href="tel:+998993799999">
+          <svg width="18" height="18"><use href="assets/icons/ui.svg#i-phone"></use></svg>
+          <span>+998 99 379 99 99</span>
+        </a>
+
+        <div class="lang-switch">
+          <button class="lang-btn is-active" data-lang="uz" title="O‘zbekcha">
+            <svg width="18" height="18"><use href="assets/icons/flags.svg#f-uz"></use></svg>
+            UZ
+          </button>
+          <button class="lang-btn" data-lang="ru" title="Рус">
+            <svg width="18" height="18"><use href="assets/icons/flags.svg#f-ru"></use></svg>
+            RU
+          </button>
+          <button class="lang-btn" data-lang="en" title="EN">
+            <svg width="18" height="18"><use href="assets/icons/flags.svg#f-gb"></use></svg>
+            EN
+          </button>
+        </div>
+
+        <a class="btn-cta" href="category.html">Katalog</a>
+
+        <a class="cart-btn" href="cart.html" aria-label="Savat" data-cart-icon>
+          <svg width="18" height="18"><use href="assets/icons/ui.svg#i-cart"></use></svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="page-hero simple">
+      <div class="page-hero-left">
+        <div class="kicker">KUKA HOME</div>
+        <h1>Aloqa</h1>
+        <p class="muted">Savol va buyurtmalar uchun qulay yo‘lni tanlang: telefon yoki Telegram.</p>
+      </div>
+      <div class="page-hero-card">
+        <div class="muted">Tezkor aloqa</div>
+        <div class="hero-actions">
+          <a class="btn primary" href="tel:+998993799999">Qo‘ng‘iroq qilish</a>
+          <a class="btn ghost" target="_blank" href="https://t.me/your_manager_username">Telegram</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-grid">
+      <div class="contact-card">
+        <h3>Bog‘lanish</h3>
+        <div class="contact-item"><b>Telefon:</b> <a href="tel:+998993799999">+998 99 379 99 99</a></div>
+        <div class="contact-item"><b>Telegram:</b> <a target="_blank" href="https://t.me/your_manager_username">@your_manager_username</a></div>
+        <div class="contact-item"><b>Ish vaqti:</b> Du–Sh 09:00–18:00</div>
+        <div class="contact-item"><b>Manzil:</b> Toshkent sh., (manzilni yozing)</div>
+
+        <div class="room-actions">
+          <a class="btn ghost" target="_blank" href="https://maps.google.com/?q=Tashkent">Google Maps</a>
+          <a class="btn primary" href="showrooms.html">Showroomlar</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <h3>Maslahat so‘rash</h3>
+        <p class="muted">Telefon raqamingizni qoldiring — konsultantlarimiz siz bilan bog‘lanadi.</p>
+
+        <!-- Namuna forma (hozircha UI). Keyin sheets.js/telegramga ulab beramiz -->
+        <form class="contact-form" id="contactForm">
+          <label class="field">
+            <span>Ism</span>
+            <input required name="name" placeholder="Ismingiz"/>
+          </label>
+
+          <label class="field">
+            <span>Telefon</span>
+            <input required name="phone" placeholder="+998 90 123 45 67"/>
+          </label>
+
+          <label class="field">
+            <span>Qiziqqan mahsulot</span>
+            <input name="product" placeholder="Masalan: KM.1238"/>
+          </label>
+
+          <label class="field">
+            <span>Xabar</span>
+            <textarea name="message" rows="4" placeholder="Qisqacha yozing..."></textarea>
+          </label>
+
+          <button class="btn primary" type="submit">Yuborish</button>
+          <div class="muted" id="contactHint" style="margin-top:10px"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <div>© 2026 KUKA HOME. Barcha huquqlar himoyalangan.</div>
+    </div>
+  </footer>
+
+  <!-- Chat Widget -->
+  <button class="chat-fab" data-chat-open>
+    <span class="chat-dot"></span>
+    Bizga yozing, biz onlaynmiz!
+  </button>
+
+  <div class="chat-modal" data-chat-modal>
+    <div class="chat-card">
+      <div class="chat-head">
+        <div class="chat-title">KUKA HOME</div>
+        <button class="chat-close" data-chat-close aria-label="close">
+          <svg width="18" height="18"><use href="assets/icons/ui.svg#i-close"></use></svg>
+        </button>
+      </div>
+      <div class="chat-body" data-chat-list></div>
+      <form class="chat-form" data-chat-form>
+        <input class="chat-input" data-chat-input placeholder="Сообщение..." />
+        <button class="chat-send" type="submit">Yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+  <script src="ui.js"></script>
+  <script>
+    // Namuna submit (UI). Keyin Sheets/Telegram integratsiya qilamiz.
+    const form = document.getElementById('contactForm');
+    const hint = document.getElementById('contactHint');
+    form?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      hint.textContent = "So‘rov qabul qilindi ✅ Tez orada bog‘lanamiz.";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
