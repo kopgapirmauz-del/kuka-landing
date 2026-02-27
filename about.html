@@ -1,1 +1,243 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>KUKA HOME — Biz haqimizda</title>
+  <meta name="description" content="KUKA HOME — premium mebel showroom. Sifat, qulaylik va zamonaviy dizayn."/>
+  <link rel="stylesheet" href="style.css"/>
 
+  <!-- SVG sprites (icons) -->
+  <link rel="preload" href="assets/icons/ui.svg" as="image">
+  <link rel="preload" href="assets/icons/social.svg" as="image">
+  <link rel="preload" href="assets/icons/flags.svg" as="image">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="container header-inner">
+
+      <div class="top-social">
+        <a class="icon-btn" href="https://t.me/your_channel" target="_blank" aria-label="Telegram">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-telegram"></use></svg>
+        </a>
+        <a class="icon-btn" href="https://instagram.com/" target="_blank" aria-label="Instagram">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-instagram"></use></svg>
+        </a>
+        <a class="icon-btn" href="https://facebook.com/" target="_blank" aria-label="Facebook">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-facebook"></use></svg>
+        </a>
+        <a class="icon-btn" href="https://youtube.com/" target="_blank" aria-label="YouTube">
+          <svg width="18" height="18"><use href="assets/icons/social.svg#s-youtube"></use></svg>
+        </a>
+      </div>
+
+      <a class="brand" href="index.html" aria-label="KUKA HOME">
+        <img src="assets/logos/kuka.png" alt="KUKA HOME" class="brand-logo">
+      </a>
+
+      <nav class="nav-links">
+        <a href="about.html" class="nav-link is-active">Biz haqimizda</a>
+        <a href="showrooms.html" class="nav-link">Shourumlar</a>
+        <a href="contact.html" class="nav-link">Aloqa</a>
+      </nav>
+
+      <div class="header-right">
+        <a class="phone" href="tel:+998993799999">
+          <svg width="18" height="18"><use href="assets/icons/ui.svg#i-phone"></use></svg>
+          <span>+998 99 379 99 99</span>
+        </a>
+
+        <div class="lang-switch">
+          <button class="lang-btn is-active" data-lang="uz" title="O‘zbekcha">
+            <svg width="18" height="18"><use href="assets/icons/flags.svg#f-uz"></use></svg>
+            UZ
+          </button>
+          <button class="lang-btn" data-lang="ru" title="Рус">
+            <svg width="18" height="18"><use href="assets/icons/flags.svg#f-ru"></use></svg>
+            RU
+          </button>
+          <button class="lang-btn" data-lang="en" title="EN">
+            <svg width="18" height="18"><use href="assets/icons/flags.svg#f-gb"></use></svg>
+            EN
+          </button>
+        </div>
+
+        <a class="btn-cta" href="category.html">Katalog</a>
+
+        <a class="cart-btn" href="cart.html" aria-label="Savat" data-cart-icon>
+          <svg width="18" height="18"><use href="assets/icons/ui.svg#i-cart"></use></svg>
+          <span class="cart-count" data-cart-count>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="container page">
+    <section class="page-hero">
+      <div class="page-hero-left">
+        <div class="kicker">KUKA HOME</div>
+        <h1>Premium mebel — zamonaviy dizayn va yuqori sifat.</h1>
+        <p class="muted">
+          Biz premium segment uchun ishlab chiqilgan mebellarni taklif qilamiz: qulaylik, sifat va estetikani bir joyga jamlagan
+          kolleksiyalar. Showroomda ko‘rib, tanlab, buyurtma berishingiz mumkin.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="showrooms.html">Showroom manzillari</a>
+          <a class="btn ghost" href="category.html">Katalogni ko‘rish</a>
+        </div>
+      </div>
+
+      <div class="page-hero-card">
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-num">44</div>
+            <div class="stat-label">yil tajriba</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3000+</div>
+            <div class="stat-label">model</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">showroom</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">20 000+</div>
+            <div class="stat-label">mijoz</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-3">
+      <div class="info-card">
+        <h3>Sifat nazorati</h3>
+        <p class="muted">Har bir mahsulot material, tikuv, mexanizm va karkas bo‘yicha tekshiruvdan o‘tadi.</p>
+      </div>
+      <div class="info-card">
+        <h3>Servis va kafolat</h3>
+        <p class="muted">Kafolat shartlari va servis xizmati: yetkazib berish, o‘rnatish va konsultatsiya.</p>
+      </div>
+      <div class="info-card">
+        <h3>Showroom tajribasi</h3>
+        <p class="muted">Kelib ko‘ring: rang, faktura va qulaylikni jonli his qilib tanlang.</p>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="split-left">
+        <h2>Nega KUKA HOME?</h2>
+        <ul class="checklist">
+          <li>Premium dizayn va zamonaviy kolleksiyalar</li>
+          <li>Nafas oluvchi materiallar, mustahkam karkas</li>
+          <li>Uy interyeriga mos konsultatsiya</li>
+          <li>Showroomda jonli ko‘rish imkoniyati</li>
+        </ul>
+        <div class="mini-cta">
+          <a class="btn primary" href="contact.html">Maslahat olish</a>
+          <a class="btn ghost" href="showrooms.html">Manzil va ish vaqti</a>
+        </div>
+      </div>
+
+      <div class="split-right">
+        <div class="quote-card">
+          <div class="quote-mark">“</div>
+          <p>
+            Premium mebel — bu faqat ko‘rinish emas. Bu qulaylik, mustahkamlik va kundalik hayot sifati.
+            Bizning maqsadimiz — uyingizga premium darajada qulaylik olib kirish.
+          </p>
+          <div class="quote-foot">KUKA HOME — Showroom</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-wide">
+      <div>
+        <h2>Premium interyer uchun to‘g‘ri tanlovni boshlang</h2>
+        <p class="muted">Katalogdan modelni tanlang yoki showroomga kelib, jonli ko‘ring.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn primary" href="category.html">Katalog</a>
+        <a class="btn ghost" href="showrooms.html">Showroomlar</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="assets/logos/kuka.png" alt="KUKA HOME" class="footer-logo">
+          <div>
+            <div class="footer-title">KUKA HOME</div>
+            <div class="muted">Savollaringiz bormi? Yordam beramiz</div>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <a class="footer-phone" href="tel:+998993799999">+998 99 379 99 99</a>
+          <div class="muted">Call-markaz ish vaqti: Du–Sh 09:00–18:00</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-head">Xaridorga</div>
+        <a class="footer-link" href="category.html">Katalog</a>
+        <a class="footer-link" href="index.html#yangi">Yangi mahsulotlar</a>
+        <a class="footer-link" href="index.html#tavsiya">Tavsiya</a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-head">Ma’lumot</div>
+        <a class="footer-link" href="about.html">Biz haqimizda</a>
+        <a class="footer-link" href="showrooms.html">Shourumlar</a>
+        <a class="footer-link" href="contact.html">Aloqa</a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-head">To‘lov usullari</div>
+        <div class="pay-row">
+          <img src="assets/payments/payme.png" alt="payme">
+          <img src="assets/payments/click.png" alt="click">
+          <img src="assets/payments/uzumbank.png" alt="uzum bank">
+          <img src="assets/payments/visa.png" alt="visa">
+        </div>
+        <div class="muted">O‘zingizga qulay usulda xarid qiling!</div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2026 KUKA HOME. Barcha huquqlar himoyalangan.</div>
+    </div>
+  </footer>
+
+  <!-- ===== Chat Widget ===== -->
+  <button class="chat-fab" data-chat-open>
+    <span class="chat-dot"></span>
+    Bizga yozing, biz onlaynmiz!
+  </button>
+
+  <div class="chat-modal" data-chat-modal>
+    <div class="chat-card">
+      <div class="chat-head">
+        <div class="chat-title">KUKA HOME</div>
+        <button class="chat-close" data-chat-close aria-label="close">
+          <svg width="18" height="18"><use href="assets/icons/ui.svg#i-close"></use></svg>
+        </button>
+      </div>
+      <div class="chat-body" data-chat-list></div>
+      <form class="chat-form" data-chat-form>
+        <input class="chat-input" data-chat-input placeholder="Сообщение..." />
+        <button class="chat-send" type="submit">Yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>
