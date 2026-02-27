@@ -86,3 +86,61 @@ function initSlider(images){
   render();
   setInterval(()=>go(1), 5000);
 }
+
+// ========= Chat Widget =========
+function initChatWidget() {
+  const btn = document.querySelector('[data-chat-open]');
+  const modal = document.querySelector('[data-chat-modal]');
+  if (!btn || !modal) return;
+
+  const closeBtn = modal.querySelector('[data-chat-close]');
+  const form = modal.querySelector('[data-chat-form]');
+  const input = modal.querySelector('[data-chat-input]');
+  const list = modal.querySelector('[data-chat-list]');
+
+  const KEY = 'kuka_chat_messages_v1';
+  const saved = JSON.parse(localStorage.getItem(KEY) || '[]');
+
+  function render() {
+    list.innerHTML = saved.map(m => `
+      <div class="msg ${m.me ? 'me' : 'bot'}">
+        <div class="bubble">${escapeHtml(m.text)}</div>
+      </div>
+    `).join('');
+    list.scrollTop = list.scrollHeight;
+  }
+
+  function open() {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    if (!saved.length) {
+      saved.push({ me:false, text:"Assalomu alaykum! KUKA HOME. Sizga qanday yordam bera olamiz?" });
+    }
+    render();
+    setTimeout(()=>input.focus(), 50);
+  }
+  function close() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) close(); });
+
+  form?.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const text = (input.value || '').trim();
+    if(!text) return;
+    saved.push({ me:true, text });
+    // TODO: shu yerga Telegram/Botga yuborish qo‘shamiz
+    localStorage.setItem(KEY, JSON.stringify(saved));
+    input.value = '';
+    render();
+  });
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' }[c]));
+  }
+}
+document.addEventListener('DOMContentLoaded', initChatWidget);
