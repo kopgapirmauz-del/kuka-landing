@@ -7,138 +7,206 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- header (sizdagi shapkani qo'ying) -->
 
-  <main class="container">
-    <section class="pdp" id="pdp">
-      <div class="pdp-gallery" data-gallery>
-        <div class="pdp-track"></div>
-        <div class="pdp-thumbs"></div>
-        <button class="pdp-nav left" data-gprev aria-label="prev">
-          <svg width="22" height="22"><use href="assets/icons/ui.svg#i-arrow-left"></use></svg>
-        </button>
-        <button class="pdp-nav right" data-gnext aria-label="next">
-          <svg width="22" height="22"><use href="assets/icons/ui.svg#i-arrow-right"></use></svg>
-        </button>
+<header class="header">
+  <div class="container">
+    <div class="midbar">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="KUKA HOME">
+      </a>
+
+      <div class="actions">
+        <a href="cart.html" class="cartPill">
+          Savat
+          <span class="badge" id="cartBadge">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="pdp" id="pdp">
+    <div class="pdp-gallery" data-gallery>
+      <div class="pdp-track"></div>
+      <div class="pdp-thumbs"></div>
+
+      <button class="pdp-nav left" data-gprev>‹</button>
+      <button class="pdp-nav right" data-gnext>›</button>
+    </div>
+
+    <div class="pdp-info">
+      <h1 class="pdp-title" id="pdpTitle"></h1>
+      <div class="pdp-price" id="pdpPrice"></div>
+
+      <div class="pdp-actions">
+        <button class="btn buy" id="pdpBuy">Savatga qo‘shish</button>
+        <a class="btn ghost" id="pdpTg" target="_blank">Telegram orqali</a>
       </div>
 
-      <div class="pdp-info">
-        <h1 class="pdp-title" id="pdpTitle">...</h1>
-        <div class="pdp-price" id="pdpPrice"></div>
-
-        <div class="pdp-actions">
-          <button class="btn buy" id="pdpBuy">Savatga qo‘shish</button>
-          <a class="btn ghost" id="pdpTg" target="_blank">Telegram orqali</a>
-        </div>
-
-        <div class="pdp-tabs">
-          <button class="tab is-active" data-tab="desc">Tavsif</button>
-          <button class="tab" data-tab="spec">Xarakteristika</button>
-        </div>
-
-        <div class="pdp-panel is-open" data-panel="desc" id="pdpDesc"></div>
-        <div class="pdp-panel" data-panel="spec" id="pdpSpec"></div>
+      <div class="pdp-tabs">
+        <button class="tab is-active" data-tab="desc">Tavsif</button>
+        <button class="tab" data-tab="spec">Xarakteristika</button>
       </div>
-    </section>
-  </main>
 
-  <!-- footer (sizdagi footer) -->
+      <div class="pdp-panel is-open" data-panel="desc" id="pdpDesc"></div>
+      <div class="pdp-panel" data-panel="spec" id="pdpSpec"></div>
+    </div>
+  </section>
+</main>
 
-  <script src="store.js"></script>
-  <script src="sheets.js"></script>
-  <script src="ui.js"></script>
-  <script>
-    // ===== PDP logic (sheets.js dan productni topadi) =====
-    const qs = new URLSearchParams(location.search);
-    const id = qs.get('id');
+<script src="store.js"></script>
+<script src="sheets.js"></script>
+<script src="ui.js"></script>
 
-    // sizning sheets.js dagi “getAllProducts()” ga moslab qo'ying:
-    // getAllProducts().then(list => ...)
-    async function boot(){
-      const list = await window.getAllProducts?.() || [];
-      const p = list.find(x => String(x.model).trim() === String(id).trim());
-      if(!p){ document.getElementById('pdp').innerHTML = '<h2>Mahsulot topilmadi</h2>'; return; }
+<script>
+/* =========================
+   PDP LOGIC — PRO VERSION
+   ========================= */
 
-      document.getElementById('pdpTitle').textContent = p.model;
-      document.getElementById('pdpPrice').textContent = formatSum(p.price);
+const params = new URLSearchParams(location.search);
+const productId = params.get("id");
 
-      const images = [p.img1, p.img2, p.img3].filter(Boolean);
-      initGallery(images);
+function normalizeAvailability(v){
+  const s = String(v || "").toLowerCase();
+  return s === "yes" || s === "bor" || s === "mavjud" || s === "true";
+}
 
-      document.getElementById('pdpDesc').textContent = p.desc || '';
-      document.getElementById('pdpSpec').textContent = p.spec || '';
+async function boot(){
 
-      const buy = document.getElementById('pdpBuy');
-      const isYes = String(p.available || '').toLowerCase() === 'yes';
+  updateCartBadge?.();
 
-      if(!isYes){
-        buy.disabled = true;
-        buy.classList.add('is-off');
-        buy.textContent = "Mavjud emas";
-      }
+  const list = await window.getAllProducts?.() || [];
+  const p = list.find(x => String(x.model).trim() === String(productId).trim());
 
-      buy.addEventListener('click', ()=>{
-        if(buy.disabled) return;
-        window.cartAdd?.(p);               // store.js dagi add
-        window.flyToCart?.(document.querySelector('.pdp-track img')); // animatsiya
-        window.toast?.("Savatga qo‘shildi ✅");
-      });
+  if(!p){
+    document.getElementById("pdp").innerHTML =
+      "<h2 style='padding:40px'>Mahsulot topilmadi</h2>";
+    return;
+  }
 
-      document.getElementById('pdpTg').href = `https://t.me/your_manager_username?text=${encodeURIComponent('Salom! '+p.model+' haqida ma’lumot kerak.')}`;
-      initTabs();
-    }
+  // Title
+  document.getElementById("pdpTitle").textContent = p.model;
 
-    function formatSum(v){
-      const n = Number(String(v).replace(/[^\d]/g,'') || 0);
-      return n.toLocaleString('ru-RU') + " so'm";
-    }
+  // Price
+  const priceNum = Number(String(p.price_new || p.price_old || "").replace(/[^\d]/g,'')) || 0;
+  document.getElementById("pdpPrice").textContent =
+    priceNum ? formatMoney(priceNum) : "So‘rov bo‘yicha";
 
-    function initTabs(){
-      const tabs = document.querySelectorAll('.tab');
-      const panels = document.querySelectorAll('.pdp-panel');
-      tabs.forEach(t=>{
-        t.addEventListener('click', ()=>{
-          tabs.forEach(x=>x.classList.remove('is-active'));
-          t.classList.add('is-active');
-          panels.forEach(p=>p.classList.remove('is-open'));
-          document.querySelector(`[data-panel="${t.dataset.tab}"]`)?.classList.add('is-open');
-        })
-      })
-    }
+  // Gallery
+  const images = [p.image1, p.image2, p.image3, p.image].filter(Boolean);
+  initGallery(images);
 
-    function initGallery(images){
-      const root = document.querySelector('[data-gallery]');
-      const track = root.querySelector('.pdp-track');
-      const thumbs = root.querySelector('.pdp-thumbs');
-      let idx = 0;
+  // Description / spec
+  document.getElementById("pdpDesc").textContent = p.desc || "";
+  document.getElementById("pdpSpec").textContent = p.spec || "";
 
-      track.innerHTML = images.map(src=>`<img src="${src}" alt="" draggable="false">`).join('');
-      thumbs.innerHTML = images.map((src,i)=>`<button class="thumb ${i===0?'is-active':''}" data-i="${i}"><img src="${src}" alt=""></button>`).join('');
+  // Availability
+  const buyBtn = document.getElementById("pdpBuy");
+  const isAvailable = normalizeAvailability(p.available);
 
-      const imgs = Array.from(track.querySelectorAll('img'));
-      function go(i){
-        idx = (i+imgs.length)%imgs.length;
-        track.style.transform = `translateX(-${idx*100}%)`;
-        thumbs.querySelectorAll('.thumb').forEach(b=>b.classList.remove('is-active'));
-        thumbs.querySelector(`[data-i="${idx}"]`)?.classList.add('is-active');
-      }
+  if(!isAvailable){
+    buyBtn.disabled = true;
+    buyBtn.classList.add("is-off");
+    buyBtn.textContent = "Mavjud emas";
+  }
 
-      root.querySelector('[data-gprev]').addEventListener('click', ()=>go(idx-1));
-      root.querySelector('[data-gnext]').addEventListener('click', ()=>go(idx+1));
-      thumbs.addEventListener('click', (e)=>{
-        const b = e.target.closest('.thumb'); if(!b) return;
-        go(Number(b.dataset.i));
-      });
+  buyBtn.addEventListener("click", ()=>{
+    if(buyBtn.disabled) return;
 
-      // swipe
-      let s=0,d=0,down=false;
-      root.addEventListener('pointerdown', (e)=>{ down=true; s=e.clientX; d=0; track.style.transition='none'; });
-      root.addEventListener('pointermove', (e)=>{ if(!down) return; d=e.clientX-s; track.style.transform=`translateX(calc(-${idx*100}% + ${d}px))`;});
-      root.addEventListener('pointerup', ()=>{ if(!down) return; down=false; track.style.transition=''; if(Math.abs(d)>60) go(idx+(d<0?1:-1)); else go(idx);});
-      go(0);
-    }
+    addToCart({
+      id: p.model,
+      title: p.model,
+      price: priceNum,
+      images,
+      available: "Yes"
+    });
 
-    boot();
-  </script>
+    flyToCart(document.querySelector(".pdp-track img"));
+    toast("Savatga qo‘shildi ✅");
+  });
+
+  // Telegram link
+  document.getElementById("pdpTg").href =
+    `https://t.me/your_manager_username?text=${encodeURIComponent("Salom! " + p.model + " haqida ma’lumot kerak.")}`;
+
+  initTabs();
+}
+
+function initTabs(){
+  const tabs = document.querySelectorAll(".tab");
+  const panels = document.querySelectorAll(".pdp-panel");
+
+  tabs.forEach(tab=>{
+    tab.addEventListener("click", ()=>{
+      tabs.forEach(t=>t.classList.remove("is-active"));
+      tab.classList.add("is-active");
+
+      panels.forEach(p=>p.classList.remove("is-open"));
+      document.querySelector(`[data-panel="${tab.dataset.tab}"]`)
+        .classList.add("is-open");
+    });
+  });
+}
+
+function initGallery(images){
+  const root = document.querySelector("[data-gallery]");
+  const track = root.querySelector(".pdp-track");
+  const thumbs = root.querySelector(".pdp-thumbs");
+
+  let index = 0;
+
+  track.innerHTML = images.map(src =>
+    `<img src="${src}" draggable="false">`
+  ).join("");
+
+  thumbs.innerHTML = images.map((src,i)=>
+    `<button class="thumb ${i===0?'is-active':''}" data-i="${i}">
+      <img src="${src}">
+    </button>`
+  ).join("");
+
+  const imgs = track.querySelectorAll("img");
+
+  function go(i){
+    index = (i + imgs.length) % imgs.length;
+    track.style.transform = `translateX(-${index*100}%)`;
+    thumbs.querySelectorAll(".thumb").forEach(t=>t.classList.remove("is-active"));
+    thumbs.querySelector(`[data-i="${index}"]`).classList.add("is-active");
+  }
+
+  root.querySelector("[data-gprev]").onclick = ()=>go(index-1);
+  root.querySelector("[data-gnext]").onclick = ()=>go(index+1);
+
+  thumbs.onclick = e=>{
+    const b = e.target.closest(".thumb");
+    if(!b) return;
+    go(Number(b.dataset.i));
+  };
+
+  // Swipe
+  let startX=0, diff=0, down=false;
+  root.addEventListener("pointerdown", e=>{
+    down=true; startX=e.clientX; diff=0; track.style.transition="none";
+  });
+  root.addEventListener("pointermove", e=>{
+    if(!down) return;
+    diff=e.clientX-startX;
+    track.style.transform=`translateX(calc(-${index*100}% + ${diff}px))`;
+  });
+  root.addEventListener("pointerup", ()=>{
+    if(!down) return;
+    down=false;
+    track.style.transition="";
+    if(Math.abs(diff)>60) go(index+(diff<0?1:-1));
+    else go(index);
+  });
+
+  go(0);
+}
+
+boot();
+</script>
+
 </body>
 </html>
