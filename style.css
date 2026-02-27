@@ -728,3 +728,76 @@ button{font-family:inherit}
   .brand img{height:50px}
   .catalogBtn{padding:12px 14px}
 }
+
+.cartLayout{
+  display:grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap:30px;
+}
+.checkoutCard{
+  background:#fff;
+  padding:20px;
+  border-radius:22px;
+  border:1px solid var(--stroke);
+  box-shadow:var(--shadow);
+  height:fit-content;
+}
+.checkoutInput{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  margin:8px 0 14px;
+}
+.paymentBtns{
+  display:flex;
+  gap:10px;
+  margin-top:6px;
+}
+.checkoutTotal{
+  display:flex;
+  justify-content:space-between;
+  margin:20px 0;
+  font-size:18px;
+}
+.cartItem{
+  display:grid;
+  grid-template-columns:110px 1fr auto;
+  gap:16px;
+  padding:16px;
+  margin-bottom:14px;
+  border-radius:20px;
+  border:1px solid var(--stroke);
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+.cartItem img{
+  width:110px;
+  height:90px;
+  object-fit:cover;
+  border-radius:14px;
+}
+.qtyRow{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+.qtyRow button{
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  border:1px solid var(--stroke);
+  background:#fff;
+  cursor:pointer;
+}
+.removeBtn{
+  background:none;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+  color:#999;
+}
+@media(max-width:980px){
+  .cartLayout{grid-template-columns:1fr}
+}
