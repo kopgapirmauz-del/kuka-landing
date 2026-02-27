@@ -4,13 +4,290 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KUKA HOME — Premium mebel</title>
+  <meta name="description" content="KUKA HOME — premium mebel: zamonaviy dizayn, qulaylik va sifat. Katalog, yangi mahsulotlar va tavsiyalar." />
+  <meta name="theme-color" content="#ffffff" />
+
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Minimal premium UI fallback (style.css bo‘lsa ham zarar qilmaydi) -->
+  <style>
+    :root{
+      --bg:#fff;
+      --text:#0f1115;
+      --muted:rgba(15,17,21,.66);
+      --line:rgba(15,17,21,.10);
+      --card:#fff;
+      --brand:#e60012;
+      --blue:#1677ff;
+      --shadow:0 18px 60px rgba(0,0,0,.10);
+      --r:22px;
+      --r2:16px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 18px}
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Header */
+    .header{
+      position:sticky; top:0; z-index:90;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0}
+    .social{display:flex;align-items:center;gap:10px}
+    .iconbtn{
+      width:38px;height:38px;border-radius:999px;
+      border:1px solid var(--line);
+      display:grid;place-items:center;
+      background:#fff;text-decoration:none;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .iconbtn svg{width:18px;height:18px;opacity:.92}
+    .iconbtn:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(0,0,0,.12);border-color:rgba(15,17,21,.18)}
+    .topnav{display:flex;gap:18px;align-items:center}
+    .topnav a{text-decoration:none;font-weight:900;opacity:.72}
+    .topnav a:hover{opacity:1}
+    .lang{display:flex;align-items:center;gap:10px}
+    .phone{font-weight:950;color:#0a58ff;white-space:nowrap}
+    .lang button{
+      border:1px solid var(--line);
+      background:#fff;border-radius:999px;
+      padding:8px 10px;cursor:pointer;
+      font-weight:900;display:flex;align-items:center;gap:8px;
+      transition:box-shadow .18s ease, transform .18s ease;
+    }
+    .lang button:hover{box-shadow:0 12px 30px rgba(0,0,0,.10);transform:translateY(-1px)}
+    .flag{font-size:16px;line-height:1}
+
+    .midbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand img{width:64px;height:64px;object-fit:contain}
+    .search{
+      flex:1;max-width:680px;
+      display:flex;align-items:center;gap:10px;
+      background:rgba(15,17,21,.04);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+    }
+    .search input{border:0;outline:0;background:transparent;width:100%;font-size:15px}
+    .actions{display:flex;align-items:center;gap:10px}
+    .catalogBtn{
+      border:0;cursor:pointer;
+      background:var(--brand);color:#fff;
+      padding:10px 16px;border-radius:999px;
+      font-weight:950;
+      box-shadow:0 18px 40px rgba(230,0,18,.20);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      white-space:nowrap;
+    }
+    .catalogBtn:hover{transform:translateY(-1px);filter:brightness(.98);box-shadow:0 22px 50px rgba(230,0,18,.24)}
+    .cartPill{
+      border:1px solid var(--line);background:#fff;
+      border-radius:999px;
+      padding:10px 14px;
+      text-decoration:none;
+      font-weight:950;
+      display:flex;align-items:center;gap:10px;
+      transition:box-shadow .18s ease, transform .18s ease;
+      white-space:nowrap;
+    }
+    .cartPill:hover{transform:translateY(-1px);box-shadow:0 18px 45px rgba(0,0,0,.10)}
+    .badge{
+      min-width:22px;height:22px;border-radius:999px;
+      background:var(--brand);color:#fff;
+      display:grid;place-items:center;
+      font-size:12px;padding:0 6px
+    }
+
+    /* Slider */
+    .sliderWrap{padding:16px 0 6px}
+    .slider{
+      position:relative;border-radius:var(--r);
+      overflow:hidden;border:1px solid var(--line);
+      background:rgba(15,17,21,.04);
+    }
+    .sliderViewport{position:relative;width:100%;height:420px;overflow:hidden}
+    .slideTrack{
+      display:flex;height:100%;
+      transform:translateX(0);
+      transition:transform 650ms cubic-bezier(.22,.75,.18,1);
+      will-change:transform;
+    }
+    .slideItem{min-width:100%;height:100%;position:relative}
+    .slideItem img{width:100%;height:100%;object-fit:cover}
+    .slideOverlay{
+      position:absolute;inset:0;
+      background:linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.12) 55%, rgba(0,0,0,0) 75%);
+      pointer-events:none;
+    }
+    .slideText{
+      position:absolute;left:26px;top:50%;transform:translateY(-50%);
+      color:#fff;max-width:520px;
+    }
+    .slideText h2{margin:0 0 10px;font-size:52px;line-height:1.02;letter-spacing:-.02em}
+    .slideText p{margin:0 0 14px;opacity:.92;font-weight:650}
+    .slideText a{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;border-radius:999px;
+      background:#fff;color:#111;text-decoration:none;font-weight:950;
+      box-shadow:0 18px 50px rgba(0,0,0,.18);
+    }
+    .slideNav{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;
+      pointer-events:none;
+    }
+    .slideNav button{
+      pointer-events:auto;
+      width:44px;height:44px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.92);
+      margin:0 14px;cursor:pointer;
+      font-size:22px;box-shadow:0 18px 50px rgba(0,0,0,.14);
+      transition:transform .18s ease;
+    }
+    .slideNav button:hover{transform:scale(1.06)}
+    .dots{
+      position:absolute;left:22px;bottom:16px;
+      display:flex;gap:8px;align-items:center;
+    }
+    .dots button{
+      width:10px;height:10px;border-radius:999px;border:0;
+      background:rgba(255,255,255,.40);cursor:pointer;
+      transition:width .22s ease, background .22s ease;
+    }
+    .dots button.active{width:30px;background:rgba(255,255,255,.78)}
+
+    /* About */
+    .about{padding:16px 0 6px}
+    .aboutGrid{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:18px;
+      padding:18px;border-radius:var(--r);
+      border:1px solid var(--line);
+      background:linear-gradient(#fff,#f7f8fb);
+    }
+    .aboutBrand img{width:86px;height:86px;object-fit:contain}
+    .aboutTitle{margin:6px 0 8px;font-size:46px;line-height:1.05;letter-spacing:-.02em}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+    .stat b{display:block;font-size:28px;color:var(--brand)}
+    .stat span{font-weight:800;opacity:.85}
+
+    /* Sections + grids */
+    .section{padding:16px 0}
+    .sectionHead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}
+    .sectionHead h2{margin:0;font-size:28px}
+    .pills{display:flex;gap:10px;flex-wrap:wrap}
+    .pill{
+      border:1px solid var(--line);background:#fff;
+      border-radius:999px;padding:10px 14px;
+      cursor:pointer;font-weight:950;text-decoration:none;
+      transition:box-shadow .18s ease, transform .18s ease;
+    }
+    .pill:hover{transform:translateY(-1px);box-shadow:0 18px 45px rgba(0,0,0,.10)}
+    .pill.active{outline:2px solid rgba(230,0,18,.20)}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+    /* Showrooms simple block */
+    .showroomsCard{
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      padding:18px;
+      background:linear-gradient(#fff,#fafafa);
+      display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    }
+    .showroomsCard .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;border-radius:999px;
+      background:#111;color:#fff;text-decoration:none;font-weight:950;
+      box-shadow:0 18px 50px rgba(0,0,0,.14);
+    }
+    .showroomsCard .btn.secondary{background:#fff;color:#111;border:1px solid var(--line);box-shadow:none}
+
+    /* Footer */
+    .footer{background:#0b0b0b;color:#fff;margin-top:24px}
+    .footerGrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:16px;padding:26px 0}
+    .footerLogo{display:flex;align-items:center;gap:12px}
+    .footerLogo img{width:54px;height:54px;object-fit:contain;background:#fff;border-radius:14px;padding:8px}
+    .footer a{color:#fff;opacity:.85;text-decoration:none}
+    .footer a:hover{opacity:1}
+    .payments{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .payments img{height:26px;background:#fff;border-radius:10px;padding:6px 10px}
+    .footerBottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid rgba(255,255,255,.08);opacity:.85}
+
+    /* Floating buttons */
+    .toTop{
+      position:fixed;left:18px;bottom:18px;
+      width:46px;height:46px;border-radius:999px;border:0;
+      background:var(--brand);cursor:pointer;z-index:95;
+      box-shadow:0 18px 50px rgba(230,0,18,.24);
+      display:none;
+    }
+    .toTop svg{width:22px;height:22px}
+    .chatFloat{
+      position:fixed;right:18px;bottom:18px;
+      z-index:95;border:0;border-radius:999px;
+      background:var(--blue);color:#fff;
+      padding:12px 16px;font-weight:950;cursor:pointer;
+      box-shadow:0 18px 50px rgba(22,119,255,.26);
+    }
+
+    /* Chat modal */
+    .modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:120;display:none}
+    .modal{
+      position:fixed;right:18px;bottom:18px;
+      width:min(420px, calc(100% - 36px));
+      background:#fff;border-radius:18px;
+      z-index:130;box-shadow:var(--shadow);
+      overflow:hidden;display:none;
+    }
+    .modalHead{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line)}
+    .modalHead button{width:38px;height:38px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer}
+    .modalBody{padding:14px;background:linear-gradient(#fff,#f7f8fb)}
+    .modalRow{display:flex;gap:10px;margin-bottom:12px}
+    .modalBody input,.modalBody textarea{
+      width:100%;border:1px solid var(--line);
+      border-radius:14px;padding:10px 12px;outline:none;font-size:14px;background:#fff
+    }
+    .modalBody textarea{min-height:110px;resize:vertical}
+    .modalBody .sendBtn{
+      width:100%;border:0;border-radius:14px;
+      background:var(--brand);color:#fff;
+      padding:12px 14px;font-weight:950;cursor:pointer;
+      box-shadow:0 18px 40px rgba(230,0,18,.18);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .topnav{display:none}
+      .social{display:none}   /* talabingiz: ijtimoiy + til mobilga tushganda yo‘qolsin */
+      .lang{display:none}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .sliderViewport{height:340px}
+      .slideText h2{font-size:38px}
+      .aboutGrid{grid-template-columns:1fr}
+    }
+    @media (max-width: 520px){
+      .grid{grid-template-columns:1fr}
+      .brand img{width:54px;height:54px}
+      .catalogBtn{padding:10px 12px}
+      .cartPill{padding:10px 12px}
+      .slideText{left:18px}
+      .slideText h2{font-size:34px}
+    }
+  </style>
 </head>
 <body>
 
 <header class="header">
   <div class="container topbar">
-    <div class="social">
+    <!-- Social (desktop only) -->
+    <div class="social" aria-label="Social links">
       <a class="iconbtn" href="#" id="tgLink" aria-label="Telegram" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M21.8 4.6 3.5 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.4c.2.6.4.6.8.2l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.4-16c.4-1.4-.5-2-1.4-1.6zM9.4 14.4l9.5-6c.5-.3 1 0 .6.4l-7.7 7.1-.3 3.4c0 .5-.3.6-.6.3l-1.5-2.4-3.1-1c-.7-.2-.7-.6.1-.8z"/></svg>
       </a>
@@ -25,52 +302,91 @@
       </a>
     </div>
 
-    <nav class="topnav">
+    <!-- Top nav -->
+    <nav class="topnav" aria-label="Top navigation">
       <a href="#about" data-i18n="about"></a>
       <a href="#showrooms" data-i18n="showrooms"></a>
       <a href="#contact" data-i18n="contact"></a>
     </nav>
 
+    <!-- Language + phone (desktop only) -->
     <div class="lang">
       <div class="phone"><span>+998 99 379 99 99</span></div>
-      <button id="langUz"><span class="flag">🇺🇿</span> O‘zbekcha</button>
-      <button id="langRu"><span class="flag">🇷🇺</span> Рус</button>
-      <button id="langEn"><span class="flag">🇬🇧</span> EN</button>
+      <button id="langUz" type="button"><span class="flag">🇺🇿</span> O‘zbekcha</button>
+      <button id="langRu" type="button"><span class="flag">🇷🇺</span> Рус</button>
+      <button id="langEn" type="button"><span class="flag">🇬🇧</span> EN</button>
     </div>
   </div>
 
+  <!-- Middle bar -->
   <div class="container midbar">
-    <div class="brand">
+    <a class="brand" href="index.html" aria-label="KUKA HOME home">
       <img src="assets/logos/logo-red.png" alt="KUKA HOME">
+      <span class="sr-only">KUKA HOME</span>
+    </a>
+
+    <div class="search" role="search">
+      <span aria-hidden="true">🔎</span>
+      <input id="searchInput" data-i18n-ph="search" placeholder="Qidiruv" autocomplete="off" />
     </div>
 
-    <div class="search">
-      🔎
-      <input id="searchInput" data-i18n-ph="search" placeholder="Qidiruv" />
-    </div>
-
-    <div class="cartBtn">
-      <button class="catalogBtn" onclick="location.href='category.html?cat=all'" data-i18n="catalog"></button>
-      <a class="cartPill" href="cart.html" title="Savat">
-        🛒 <span class="badge" id="cartBadge">0</span>
+    <div class="actions">
+      <button class="catalogBtn" type="button" onclick="location.href='category.html?cat=all'" data-i18n="catalog"></button>
+      <a class="cartPill" href="cart.html" title="Savat" aria-label="Savat">
+        <span aria-hidden="true">🛒</span>
+        <span class="badge" id="cartBadge">0</span>
       </a>
     </div>
   </div>
 </header>
 
-<!-- Slider -->
-<section class="container sliderWrap">
+<!-- ===== Slider (animated) ===== -->
+<section class="container sliderWrap" aria-label="Hero slider">
   <div class="slider">
-    <img id="slideImg" class="slide" src="assets/slider/1.jpg" alt="Slide">
-    <div class="slideNav">
-      <button id="slidePrev" aria-label="Prev">‹</button>
-      <button id="slideNext" aria-label="Next">›</button>
+    <div class="sliderViewport">
+      <!-- IMPORTANT: slideImg id saqlangan (eski kodlar uchun) -->
+      <img id="slideImg" src="assets/slider/1.jpg" alt="Slide" class="sr-only" />
+      <div class="slideTrack" id="slideTrack">
+        <div class="slideItem">
+          <img src="assets/slider/1.jpg" alt="Premium oshxona" />
+          <div class="slideOverlay"></div>
+          <div class="slideText">
+            <h2>Premium oshxona</h2>
+            <p>Biz bilan qulay! Zamonaviy dizayn va premium sifat.</p>
+            <a href="category.html?cat=all">Katalogga o‘tish →</a>
+          </div>
+        </div>
+        <div class="slideItem">
+          <img src="assets/slider/2.jpg" alt="Yangi kolleksiyalar" />
+          <div class="slideOverlay"></div>
+          <div class="slideText">
+            <h2>Yangi kolleksiyalar</h2>
+            <p>Trend dizaynlar — uy interyeringizga mos.</p>
+            <a href="category.html?cat=yangi">Yangilar →</a>
+          </div>
+        </div>
+        <div class="slideItem">
+          <img src="assets/slider/3.jpg" alt="Tavsiyalar" />
+          <div class="slideOverlay"></div>
+          <div class="slideText">
+            <h2>Tavsiya qilamiz</h2>
+            <p>Eng ommabop va ishonchli modellar.</p>
+            <a href="category.html?cat=tavsiya">Tavsiyalar →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="slideNav">
+        <button id="slidePrev" type="button" aria-label="Prev">‹</button>
+        <button id="slideNext" type="button" aria-label="Next">›</button>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Slider dots"></div>
     </div>
-    <div class="dots" id="dots"></div>
   </div>
 </section>
 
-<!-- About + Stats -->
+<!-- ===== About + Stats ===== -->
 <section id="about" class="about">
   <div class="container aboutGrid">
     <div>
@@ -78,12 +394,12 @@
         <img src="assets/logos/logo-black.png" alt="KUKA HOME">
       </div>
       <h1 class="aboutTitle" data-i18n="stats_title"></h1>
-      <p class="muted" style="max-width:680px; font-weight:650">
+      <p class="muted" style="max-width:720px; font-weight:700">
         Premium segment uchun zamonaviy dizayn, qulaylik va sifat
       </p>
     </div>
 
-    <div class="stats">
+    <div class="stats" aria-label="Stats">
       <div class="stat"><b>44</b><span data-i18n="stats_a"></span></div>
       <div class="stat"><b>3000+</b><span data-i18n="stats_b"></span></div>
       <div class="stat"><b>3</b><span data-i18n="stats_c"></span></div>
@@ -92,50 +408,69 @@
   </div>
 </section>
 
-<!-- Catalog short -->
+<!-- ===== Showrooms (anchor bor bo‘lsin, nav ishlasin) ===== -->
+<section id="showrooms" class="section">
+  <div class="container">
+    <div class="showroomsCard">
+      <div>
+        <h2 style="margin:0 0 8px" data-i18n="showrooms"></h2>
+        <div class="muted" style="font-weight:700">
+          Showroom manzillari va ish vaqtini alohida sahifada ko‘ring.
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <a class="btn secondary" href="#contact">Aloqa</a>
+        <a class="btn" href="showrooms.html">Showroomlar →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Catalog short ===== -->
 <section class="section" id="catalog">
   <div class="container">
     <div class="sectionHead">
       <div>
         <h2 data-i18n="catalog_short"></h2>
-        <p class="muted" data-i18n="filter_hint"></p>
+        <p class="muted" data-i18n="filter_hint" style="font-weight:700"></p>
       </div>
+
       <div class="pills" id="homePills">
-        <button class="pill active" data-filter="all" data-i18n="all"></button>
-        <button class="pill" data-filter="divan" data-i18n="divan"></button>
-        <button class="pill" data-filter="kreslo" data-i18n="kreslo"></button>
-        <button class="pill" data-filter="stol" data-i18n="stol"></button>
-        <button class="pill" data-filter="yotoq" data-i18n="yotoq"></button>
+        <button class="pill active" type="button" data-filter="all" data-i18n="all"></button>
+        <button class="pill" type="button" data-filter="divan" data-i18n="divan"></button>
+        <button class="pill" type="button" data-filter="kreslo" data-i18n="kreslo"></button>
+        <button class="pill" type="button" data-filter="stol" data-i18n="stol"></button>
+        <button class="pill" type="button" data-filter="yotoq" data-i18n="yotoq"></button>
       </div>
     </div>
 
-    <div class="grid" id="catalogGrid"></div>
+    <div class="grid" id="catalogGrid" aria-label="Catalog grid"></div>
   </div>
 </section>
 
-<!-- New products -->
-<section class="section">
+<!-- ===== New products ===== -->
+<section class="section" id="yangi">
   <div class="container">
     <div class="sectionHead">
       <h2 data-i18n="new_products"></h2>
-      <a class="pill" href="category.html?cat=yangi">→</a>
+      <a class="pill" href="category.html?cat=yangi" aria-label="All new products">→</a>
     </div>
-    <div class="grid" id="newGrid"></div>
+    <div class="grid" id="newGrid" aria-label="New products grid"></div>
   </div>
 </section>
 
-<!-- Recommend -->
-<section class="section">
+<!-- ===== Recommend ===== -->
+<section class="section" id="tavsiya">
   <div class="container">
     <div class="sectionHead">
       <h2 data-i18n="recommend"></h2>
-      <a class="pill" href="category.html?cat=tavsiya">→</a>
+      <a class="pill" href="category.html?cat=tavsiya" aria-label="All recommended">→</a>
     </div>
-    <div class="grid" id="recGrid"></div>
+    <div class="grid" id="recGrid" aria-label="Recommended grid"></div>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- ===== Footer ===== -->
 <footer class="footer" id="contact">
   <div class="container footerGrid">
     <div>
@@ -143,8 +478,11 @@
         <img src="assets/logos/logo-red.png" alt="KUKA HOME">
         <b>KUKA HOME</b>
       </div>
+
       <p style="margin:10px 0 14px" data-i18n="footer_help"></p>
-      <div style="font-weight:900; font-size:18px">+998 99 379 99 99</div>
+
+      <div style="font-weight:950; font-size:18px">+998 99 379 99 99</div>
+
       <div style="margin-top:12px">
         <b data-i18n="call_time"></b>
         <div style="margin-top:6px" data-i18n="call_hours"></div>
@@ -152,26 +490,27 @@
 
       <div style="margin-top:16px">
         <b>Biz ijtimoiy tarmoqlarda</b>
-        <div class="social">
-      <a class="iconbtn" href="#" id="tgLink" aria-label="Telegram" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M21.8 4.6 3.5 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.4c.2.6.4.6.8.2l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.4-16c.4-1.4-.5-2-1.4-1.6zM9.4 14.4l9.5-6c.5-.3 1 0 .6.4l-7.7 7.1-.3 3.4c0 .5-.3.6-.6.3l-1.5-2.4-3.1-1c-.7-.2-.7-.6.1-.8z"/></svg>
-      </a>
-      <a class="iconbtn" href="#" id="igLink" aria-label="Instagram" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.8-2.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
-      </a>
-      <a class="iconbtn" href="#" id="fbLink" aria-label="Facebook" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.6 1.7-1.6h1.6V5c-.3 0-1.3-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4V11H7.2v3H10v8h3.5z"/></svg>
-      </a>
-      <a class="iconbtn" href="#" id="ytLink" aria-label="YouTube" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8zM10.2 15.2V8.8L15.8 12l-5.6 3.2z"/></svg>
-      </a>
-    </div>
+        <!-- DIQQAT: footerda ID’lar boshqa, endi duplicate yo‘q -->
+        <div class="social" style="margin-top:10px">
+          <a class="iconbtn" href="#" id="tgLinkFoot" aria-label="Telegram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M21.8 4.6 3.5 11.7c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.4c.2.6.4.6.8.2l2.6-2.5 5.4 4c1 .6 1.7.3 2-.9l3.4-16c.4-1.4-.5-2-1.4-1.6zM9.4 14.4l9.5-6c.5-.3 1 0 .6.4l-7.7 7.1-.3 3.4c0 .5-.3.6-.6.3l-1.5-2.4-3.1-1c-.7-.2-.7-.6.1-.8z"/></svg>
+          </a>
+          <a class="iconbtn" href="#" id="igLinkFoot" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.8-2.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+          </a>
+          <a class="iconbtn" href="#" id="fbLinkFoot" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3H13.5V9.1c0-.9.3-1.6 1.7-1.6h1.6V5c-.3 0-1.3-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.4V11H7.2v3H10v8h3.5z"/></svg>
+          </a>
+          <a class="iconbtn" href="#" id="ytLinkFoot" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8zM10.2 15.2V8.8L15.8 12l-5.6 3.2z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
 
     <div>
       <h4 data-i18n="customer"></h4>
-      <div class="muted" style="display:grid; gap:10px">
+      <div class="muted" style="display:grid; gap:10px; font-weight:700">
         <a href="category.html?cat=all">Katalog</a>
         <a href="category.html?cat=yangi">Yangi mahsulotlar</a>
         <a href="category.html?cat=tavsiya">Tavsiya</a>
@@ -181,7 +520,7 @@
 
     <div>
       <h4 data-i18n="info"></h4>
-      <div class="muted" style="display:grid; gap:10px">
+      <div class="muted" style="display:grid; gap:10px; font-weight:700">
         <a href="#about">Biz haqimizda</a>
         <a href="#showrooms">Shourumlar</a>
         <a href="#catalog">Katalog</a>
@@ -198,7 +537,7 @@
         <img src="assets/payments/humo.png" alt="humo">
         <img src="assets/payments/visa.png" alt="visa">
       </div>
-      <p class="muted" style="margin-top:12px">O'zingizga qulay usulda xarid qiling!</p>
+      <p class="muted" style="margin-top:12px; font-weight:700">O'zingizga qulay usulda xarid qiling!</p>
     </div>
   </div>
 
@@ -208,16 +547,21 @@
   </div>
 </footer>
 
-<button class="toTop" id="toTop" aria-label="Top">
+<!-- ===== Floating UI ===== -->
+<button class="toTop" id="toTop" type="button" aria-label="Top">
   <svg viewBox="0 0 24 24"><path fill="white" d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8l-4.6 4.6L5 12l7-7z"/></svg>
 </button>
 
-<button class="chatFloat" id="chatOpen"><span data-i18n="chat_title"></span></button>
+<button class="chatFloat" id="chatOpen" type="button">
+  <span data-i18n="chat_title"></span>
+</button>
+
 <div class="modalOverlay" id="modalOverlay"></div>
-<div class="modal" id="chatModal">
+
+<div class="modal" id="chatModal" role="dialog" aria-modal="true" aria-label="Chat">
   <div class="modalHead">
     <b data-i18n="chat_title"></b>
-    <button id="chatClose">✕</button>
+    <button id="chatClose" type="button" aria-label="Close">✕</button>
   </div>
   <div class="modalBody">
     <div class="modalRow">
@@ -227,45 +571,133 @@
       <textarea id="chatMsg" data-i18n-ph="msg" placeholder="Xabar"></textarea>
     </div>
     <div class="modalRow">
-      <button id="chatSend" style="width:100%" data-i18n="send"></button>
+      <button id="chatSend" type="button" class="sendBtn" data-i18n="send"></button>
     </div>
   </div>
 </div>
 
+<!-- ===== Existing scripts ===== -->
 <script src="i18n.js"></script>
 <script src="store.js"></script>
 <script src="sheets.js"></script>
 <script src="ui.js"></script>
 <script src="app.js"></script>
 
+<!-- ===== Safe fixes + slider animation (conflict qilmaydi) ===== -->
 <script>
-  // Social links (o'zingiz URL qo'yasiz)
+  // 1) Social links — endi footerda ID duplicate yo‘q
   const LINKS = {
     tg: "https://t.me/KUKAHOME",
     ig: "https://instagram.com/kukahome_uzbekistan/",
     fb: "https://facebook.com/",
-    yt: "https://youtube.com/channel/UCZL7YByyNpE7Uluco4mqcRg"
+    yt: "https://youtube.com/"
   };
-  ["tgLink","igLink","fbLink","ytLink","tgLink2","igLink2","fbLink2","ytLink2"].forEach(id=>{
+
+  function setHref(id, url){
     const el = document.getElementById(id);
-    if(!el) return;
-    if(id.startsWith("tg")) el.href = LINKS.tg;
-    if(id.startsWith("ig")) el.href = LINKS.ig;
-    if(id.startsWith("fb")) el.href = LINKS.fb;
-    if(id.startsWith("yt")) el.href = LINKS.yt;
+    if(el) el.href = url;
+  }
+  setHref("tgLink", LINKS.tg);
+  setHref("igLink", LINKS.ig);
+  setHref("fbLink", LINKS.fb);
+  setHref("ytLink", LINKS.yt);
+
+  setHref("tgLinkFoot", LINKS.tg);
+  setHref("igLinkFoot", LINKS.ig);
+  setHref("fbLinkFoot", LINKS.fb);
+  setHref("ytLinkFoot", LINKS.yt);
+
+  // 2) Scroll to top button
+  const toTop = document.getElementById("toTop");
+  const toggleTop = () => {
+    if(!toTop) return;
+    toTop.style.display = (window.scrollY > 600) ? "grid" : "none";
+  };
+  window.addEventListener("scroll", toggleTop, { passive:true });
+  toggleTop();
+  toTop?.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  // 3) Smooth anchor (nice UX)
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener("click",(e)=>{
+      const id = a.getAttribute("href");
+      if(!id || id.length < 2) return;
+      const target = document.querySelector(id);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior:"smooth", block:"start"});
+    });
   });
+
+  // 4) Slider (chapdan o‘ngga animatsiya)
+  //    Bu qismini app.js bilan urishmasligi uchun alohida yozdim.
+  (function(){
+    const track = document.getElementById("slideTrack");
+    const dotsWrap = document.getElementById("dots");
+    const prev = document.getElementById("slidePrev");
+    const next = document.getElementById("slideNext");
+
+    if(!track || !dotsWrap || !prev || !next) return;
+
+    const slides = Array.from(track.children);
+    let i = 0;
+    let timer = null;
+    const total = slides.length;
+
+    function syncLegacyImg(){
+      // Eski kodlar slideImg ni ishlatishi mumkin — shuni ham yangilab turamiz.
+      const legacy = document.getElementById("slideImg");
+      const img = slides[i]?.querySelector("img");
+      if(legacy && img) legacy.src = img.src;
+    }
+
+    function renderDots(){
+      dotsWrap.innerHTML = "";
+      for(let k=0;k<total;k++){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = (k===i) ? "active" : "";
+        b.addEventListener("click", ()=>{
+          i = k;
+          go();
+          restart();
+        });
+        dotsWrap.appendChild(b);
+      }
+    }
+
+    function go(){
+      track.style.transform = `translateX(${-i*100}%)`;
+      Array.from(dotsWrap.children).forEach((d, idx)=>{
+        d.classList.toggle("active", idx===i);
+      });
+      syncLegacyImg();
+    }
+
+    function step(dir){
+      i = (i + dir + total) % total;
+      go();
+      restart();
+    }
+
+    function restart(){
+      if(timer) clearInterval(timer);
+      timer = setInterval(()=> step(1), 5200);
+    }
+
+    prev.addEventListener("click", ()=> step(-1));
+    next.addEventListener("click", ()=> step(1));
+
+    renderDots();
+    go();
+    restart();
+
+    // Pause on hover (desktop)
+    const slider = track.closest(".slider");
+    slider?.addEventListener("mouseenter", ()=> timer && clearInterval(timer));
+    slider?.addEventListener("mouseleave", restart);
+  })();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
