@@ -1,5 +1,5 @@
 // ====== 1) SHUNI TO‘LDIRASIZ ======
-const SHEET_ID = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQUNgDggq2khJ9P8s4WDTXlliSurNQviWrXpSLD8IOybhmSK5To24dTQq3Ty7PqqMRQ1EiyHTW_Xm8F/pubhtml";
+const SHEET_ID = "1ovlBBjoZpGRHkl5KLMpKqIOMR0PDOtX-tu6cVZ79HGs";
 
 // tabs (sheet name) mapping
 const SHEETS = {
