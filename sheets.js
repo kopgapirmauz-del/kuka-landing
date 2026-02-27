@@ -1,5 +1,5 @@
 // ====== 1) SHUNI TO‘LDIRASIZ ======
-const SHEET_ID = "PASTE_YOUR_SHEET_ID_HERE";
+const SHEET_ID = "https://docs.google.com/spreadsheets/d/1ovlBBjoZpGRHkl5KLMpKqIOMR0PDOtX-tu6cVZ79HGs/edit?usp=sharing";
 
 // tabs (sheet name) mapping
 const SHEETS = {
