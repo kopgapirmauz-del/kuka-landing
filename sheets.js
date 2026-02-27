@@ -18,8 +18,7 @@ const SHEETS = {
 
 // ====== 2) APPS SCRIPT ENDPOINTS (Web App URL) ======
 // Bu yerga Apps Script -> Deploy -> Web app -> URL qo'yiladi
-const ORDER_ENDPOINT = "PASTE_YOUR_ORDER_APPS_SCRIPT_URL_HERE";
-const CHAT_ENDPOINT  = "PASTE_YOUR_CHAT_APPS_SCRIPT_URL_HERE";
+const WEBAPP_ENDPOINT = "https://script.google.com/macros/s/AKfycby9h8bBNl2MRAgOEa5_294KI5jopzuSUy2Sg9WRTHomT1gUcF1C-O_AO4tzcjRgR4QK6w/exec";
 
 // ====== 3) READ SHEET (GViz JSON) ======
 function sheetJsonUrl(sheetName) {
