@@ -144,3 +144,48 @@ function initChatWidget() {
   }
 }
 document.addEventListener('DOMContentLoaded', initChatWidget);
+
+
+// ===== Toast + Fly to cart =====
+window.toast = (text) => {
+  let t = document.querySelector('.toast');
+  if(!t){
+    t = document.createElement('div');
+    t.className = 'toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = text;
+  t.classList.add('is-show');
+  setTimeout(()=>t.classList.remove('is-show'), 2200);
+};
+
+window.flyToCart = (imgEl) => {
+  const cart = document.querySelector('[data-cart-icon]');
+  if(!imgEl || !cart) return;
+
+  const r1 = imgEl.getBoundingClientRect();
+  const r2 = cart.getBoundingClientRect();
+
+  const clone = imgEl.cloneNode(true);
+  clone.style.position = 'fixed';
+  clone.style.left = r1.left+'px';
+  clone.style.top = r1.top+'px';
+  clone.style.width = r1.width+'px';
+  clone.style.height = r1.height+'px';
+  clone.style.objectFit = 'cover';
+  clone.style.borderRadius = '14px';
+  clone.style.zIndex = 9999;
+  clone.style.transition = 'all .7s cubic-bezier(.2,.8,.2,1)';
+  document.body.appendChild(clone);
+
+  requestAnimationFrame(()=>{
+    clone.style.left = (r2.left + r2.width/2 - 18) + 'px';
+    clone.style.top = (r2.top + r2.height/2 - 18) + 'px';
+    clone.style.width = '36px';
+    clone.style.height = '36px';
+    clone.style.opacity = '0.2';
+    clone.style.transform = 'scale(0.6)';
+  });
+
+  clone.addEventListener('transitionend', ()=>clone.remove(), { once:true });
+};
