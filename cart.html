@@ -1,160 +1,162 @@
 <!doctype html>
 <html lang="uz">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>KUKA HOME — Savat</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
 <header class="header">
-  <div class="container topbar">
-    <div class="social">
-      <a class="iconbtn" href="index.html">⬅</a>
-    </div>
-    <div class="topnav">
-      <a href="index.html" style="font-weight:900">KUKA HOME</a>
-    </div>
-    <div class="lang">
-      <button id="langUz"><span class="flag">🇺🇿</span> O‘zbekcha</button>
-      <button id="langRu"><span class="flag">🇷🇺</span> Рус</button>
-      <button id="langEn"><span class="flag">🇬🇧</span> EN</button>
+  <div class="container">
+    <div class="midbar">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="KUKA HOME">
+      </a>
+
+      <a href="index.html" class="btn ghost">⬅ Ortga</a>
+
+      <a href="cart.html" class="cartPill">
+        Savat
+        <span class="badge" id="cartBadge">0</span>
+      </a>
     </div>
   </div>
 </header>
 
-<main class="container section" style="display:grid; grid-template-columns: 1.2fr .8fr; gap:18px">
-  <div>
-    <h2 data-i18n="cart">Savat</h2>
-    <div id="cartList"></div>
-  </div>
+<main class="container section">
+  <div class="cartLayout">
 
-  <div class="card" style="padding:16px">
-    <h3 style="margin:0 0 10px" data-i18n="order">Buyurtma berish</h3>
-    <p class="muted" style="margin-top:0">Telefon raqamingizni kiriting. Buyurtma Google Sheets’ga tushadi.</p>
+    <!-- LEFT: Items -->
+    <div>
+      <h2 style="margin-top:0">Savat</h2>
+      <div id="cartList"></div>
+    </div>
 
-    <input id="orderPhone" placeholder="+998..." style="width:100%;padding:12px;border:1px solid var(--stroke);border-radius:14px;outline:none;margin:8px 0 10px">
+    <!-- RIGHT: Checkout -->
+    <div class="checkoutCard">
+      <h3>Buyurtma berish</h3>
 
-    <button class="btn primary" id="orderSend" style="width:100%" data-i18n="confirm">Tasdiqlash</button>
+      <label class="muted">Telefon raqamingiz</label>
+      <input id="orderPhone" placeholder="+998..." class="checkoutInput"/>
 
-    <div style="margin-top:14px">
-      <p class="muted" style="margin:0 0 10px">To‘lov:</p>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <button class="btn ghost" id="payCash">Naqd</button>
-        <button class="btn ghost" id="payCard">Karta</button>
-        <button class="btn ghost" id="paySplit">Bo‘lib to‘lash</button>
+      <div class="paymentBlock">
+        <div class="muted">To‘lov turi</div>
+        <div class="paymentBtns">
+          <button class="btn ghost" id="payCash">Naqd</button>
+          <button class="btn ghost" id="payCard">Karta</button>
+          <button class="btn ghost" disabled>Bo‘lib to‘lash</button>
+        </div>
       </div>
+
+      <div class="checkoutTotal">
+        <span>Jami:</span>
+        <b id="totalSum">0</b>
+      </div>
+
+      <button class="btn primary" id="orderSend" style="width:100%">
+        Buyurtmani tasdiqlash
+      </button>
     </div>
 
-    <div style="margin-top:14px">
-      <b>Jami:</b> <span id="totalSum">0</span>
-    </div>
   </div>
 </main>
 
-<button class="toTop" id="toTop" aria-label="Top">
-  <svg viewBox="0 0 24 24"><path fill="white" d="M12 5l7 7-1.4 1.4L13 8.8V20h-2V8.8l-4.6 4.6L5 12l7-7z"/></svg>
-</button>
-
-<script src="i18n.js"></script>
 <script src="store.js"></script>
 <script src="sheets.js"></script>
 <script src="ui.js"></script>
+
 <script>
-  function numFromPrice(p){
-    // "1 260 000 so'm" -> 1260000
-    if(!p) return 0;
-    const n = p.toString().replace(/[^\d]/g,"");
-    return Number(n||0);
+function renderCart(){
+  const cart = getCartItems();
+  const list = document.getElementById("cartList");
+
+  if(cart.length === 0){
+    list.innerHTML = `
+      <div class="card" style="padding:30px;text-align:center">
+        <p class="muted">Savat bo‘sh.</p>
+        <a href="index.html" class="btn primary">Katalogga qaytish</a>
+      </div>
+    `;
+    document.getElementById("totalSum").textContent = "0 so'm";
+    return;
   }
-  function formatUZS(n){
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " so'm";
-  }
 
-  function renderCart(){
-    const cart = readCart();
-    const list = document.getElementById("cartList");
-    if(cart.length===0){
-      list.innerHTML = `<p class="muted">Savat bo‘sh.</p>`;
-      document.getElementById("totalSum").textContent = "0";
-      return;
-    }
+  list.innerHTML = cart.map(item => `
+    <div class="cartItem">
+      <img src="${item.images?.[0] || 'assets/products/placeholder.jpg'}">
 
-    list.innerHTML = cart.map(item=>{
-      const price = item.price_new?.trim() ? item.price_new : item.price_old;
-      return `
-        <div class="card" style="display:grid; grid-template-columns: 110px 1fr; gap:14px; padding:14px; margin-bottom:12px">
-          <img src="${item.image||"assets/products/placeholder.jpg"}" style="width:110px;height:90px;object-fit:cover;border-radius:14px;border:1px solid var(--stroke)">
-          <div>
-            <div style="display:flex; justify-content:space-between; gap:10px">
-              <div>
-                <b>${item.model||""}</b>
-                <div class="muted" style="margin-top:6px">${price||"So‘rov bo‘yicha"}</div>
-              </div>
-              <button class="btn ghost" data-del="${item.id}">🗑</button>
-            </div>
+      <div class="cartInfo">
+        <h4>${item.title}</h4>
+        <div class="muted">${formatMoney(item.price)}</div>
 
-            <div style="display:flex; align-items:center; gap:10px; margin-top:12px">
-              <button class="btn ghost" data-minus="${item.id}">−</button>
-              <b>${item.qty}</b>
-              <button class="btn ghost" data-plus="${item.id}">+</button>
-            </div>
-          </div>
+        <div class="qtyRow">
+          <button data-minus="${item.id}">−</button>
+          <span>${item.qty}</span>
+          <button data-plus="${item.id}">+</button>
         </div>
-      `;
-    }).join("");
+      </div>
 
-    // total
-    let total = 0;
-    cart.forEach(i=>{
-      const p = i.price_new?.trim() ? i.price_new : i.price_old;
-      total += numFromPrice(p) * i.qty;
-    });
-    document.getElementById("totalSum").textContent = formatUZS(total);
+      <button class="removeBtn" data-del="${item.id}">✕</button>
+    </div>
+  `).join("");
+
+  document.getElementById("totalSum").textContent =
+    formatMoney(getCartTotal());
+}
+
+document.addEventListener("click", e=>{
+  const del = e.target.closest("[data-del]");
+  const minus = e.target.closest("[data-minus]");
+  const plus = e.target.closest("[data-plus]");
+
+  if(del){
+    removeFromCart(del.dataset.del);
+    toast("O‘chirildi");
+    renderCart();
   }
 
-  document.addEventListener("click", (e)=>{
-    const d = e.target.closest("[data-del]");
-    const m = e.target.closest("[data-minus]");
-    const p = e.target.closest("[data-plus]");
-    if(d){ removeFromCart(d.dataset.del); renderCart(); }
-    if(m){ changeQty(m.dataset.minus, -1); renderCart(); }
-    if(p){ changeQty(p.dataset.plus, +1); renderCart(); }
-  });
-
-  document.addEventListener("DOMContentLoaded", ()=>{
-    initLangButtons(); applyI18n(); updateCartBadge();
-    initToTop();
+  if(minus){
+    changeQty(minus.dataset.minus, -1);
     renderCart();
+  }
 
-    document.getElementById("paySplit").onclick = ()=> alert(t("soon"));
-    document.getElementById("payCash").onclick = ()=> alert("OK ✅");
-    document.getElementById("payCard").onclick = ()=> alert("OK ✅");
+  if(plus){
+    changeQty(plus.dataset.plus, +1);
+    renderCart();
+  }
+});
 
-    document.getElementById("orderSend").onclick = async ()=>{
-      const phone = document.getElementById("orderPhone").value.trim();
-      if(!phone) return alert("Telefon raqam kiriting.");
-      const cart = readCart();
-      if(cart.length===0) return alert("Savat bo‘sh.");
+document.addEventListener("DOMContentLoaded", ()=>{
+  updateCartBadge();
+  renderCart();
 
-      const payload = {
-        phone,
-        items: cart,
-        page: location.href,
-        ts: new Date().toISOString()
-      };
+  document.getElementById("orderSend").onclick = async ()=>{
+    const phone = document.getElementById("orderPhone").value.trim();
+    if(!phone) return toast("Telefon kiriting");
 
-      const r = await sendOrderToSheets(payload);
-      if(r && r.ok !== false){
-        alert("Buyurtma yuborildi ✅");
-        writeCart([]);
-        renderCart();
-      }else{
-        alert("Xatolik. Endpoint tekshiring.");
-      }
+    const items = getCartItems();
+    if(!items.length) return toast("Savat bo‘sh");
+
+    const payload = {
+      phone,
+      items,
+      total: getCartTotal(),
+      ts: new Date().toISOString()
     };
-  });
+
+    const r = await sendOrderToSheets(payload);
+    if(r && r.ok !== false){
+      toast("Buyurtma yuborildi ✅");
+      clearCart();
+      renderCart();
+    }else{
+      toast("Xatolik ❌");
+    }
+  };
+});
 </script>
+
 </body>
 </html>
