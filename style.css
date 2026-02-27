@@ -580,3 +580,17 @@ a{color:inherit;text-decoration:none}
   transition: width .25s ease, background .25s ease;
 }
 .dot.is-active{ width:26px; background: rgba(0,0,0,.55); }
+
+
+/* ===== Sticky Header rules ===== */
+.header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+@media (max-width: 980px){
+  .header .top-social,
+  .header .lang-switch { display:none !important; }
+  .header .nav-links { display:none !important; } /* Biz haqimizda/Showroom/Aloqa mobil menyuda bo‘ladi */
+}
